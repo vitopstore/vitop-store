@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VITOP STORE — Premium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- BARRA SUPERIOR -->
+  <div class="top-bar">
+    ✦ Envíos a todo el Perú &nbsp;·&nbsp; Escríbenos por WhatsApp &nbsp;·&nbsp; Productos 100% Originales ✦
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">VITOP<span>.</span></div>
+    <input type="text" id="buscador" placeholder="Buscar producto, marca, modelo...">
+    <a href="https://wa.me/51961836500?text=Hola%20Vitop%20Store!%20Quiero%20ver%20el%20catálogo" 
+       class="nav-wa" target="_blank">💬 WhatsApp</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🔥 Nueva colección 2025</div>
+      <h1>Estilo que define<br>tu <em>esencia</em></h1>
+      <p>Nike, Adidas, Jordan, CAT, Puma y más — originales, con envío a todo el Perú.</p>
+      <a href="#catalogo" class="btn-hero">Ver Catálogo</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-n">63+</span><span class="stat-l">Productos</span></div>
+      <div class="stat"><span class="stat-n">6+</span><span class="stat-l">Marcas</span></div>
+      <div class="stat"><span class="stat-n">100%</span><span class="stat-l">Original</span></div>
+    </div>
+  </section>
+
+  <!-- FILTROS -->
+  <section id="catalogo" class="catalogo-section">
+    <div class="section-header">
+      <div>
+        <div class="section-eye">Catálogo</div>
+        <h2 class="section-title">Productos <em>Disponibles</em></h2>
+      </div>
+      <div class="resultado-count" id="contadorResultados"></div>
+    </div>
+
+    <div class="filtros" id="filtros">
+      <button class="filtro-btn active" data-cat="todos">Todos</button>
+      <!-- se generan dinámicamente -->
+    </div>
+
+    <!-- TOGGLE STOCK -->
+    <label class="toggle-stock">
+      <input type="checkbox" id="soloStock" checked>
+      <span class="toggle-slider"></span>
+      Solo con stock disponible
+    </label>
+
+    <!-- GRID PRODUCTOS -->
+    <div id="productos"></div>
+
+    <div id="sinResultados" style="display:none;" class="sin-resultados">
+      😕 No encontramos productos con ese criterio.<br>
+      <a href="https://wa.me/51961836500?text=Hola!%20Busco%20un%20producto%20específico" target="_blank">Consúltanos por WhatsApp →</a>
+    </div>
+  </section>
+
+  <!-- BANNER WA -->
+  <div class="banner-wa">
+    <div>
+      <h3>¿No encuentras lo que buscas?</h3>
+      <p>Escríbenos y te ayudamos a encontrar el producto perfecto</p>
+    </div>
+    <a href="https://wa.me/51961836500?text=Hola%20Vitop!%20Busco%20un%20producto%20específico%20🛍️" 
+       class="btn-wa-banner" target="_blank">💬 Escribir por WhatsApp</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">VITOP<span>.</span></div>
+    <p>© 2025 Vitop Store · Hecho con ❤️ en Perú</p>
+    <a href="https://wa.me/51961836500" class="footer-wa" target="_blank">💬 WhatsApp</a>
+  </footer>
+
+  <!-- BOTÓN FLOTANTE -->
+  <a href="https://wa.me/51961836500?text=Hola%20Vitop%20Store!%20🛍️" 
+     class="wa-float" target="_blank" title="Escríbenos">💬</a>
+
+  <script src="script.js"></script>
+</body>
+</html>
