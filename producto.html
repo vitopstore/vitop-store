@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Producto — VITOP STORE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── DETALLE PAGE ─────────────────────────── */
+    .detalle-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* ── GALERÍA ──────────────────────────────── */
+    .galeria {
+      position: sticky;
+      top: 90px;
+    }
+
+    .galeria-principal {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #f0ede6;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .galeria-principal img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 24px;
+      transition: opacity .25s ease;
+    }
+
+    .galeria-principal .emoji-fallback {
+      font-size: 7rem;
+    }
+
+    .miniaturas {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .miniatura {
+      aspect-ratio: 1 / 1;
+      background: #f0ede6;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .miniatura.active {
+      border-color: var(--gold);
+    }
+
+    .miniatura img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 8px;
+    }
+
+    .miniatura .emoji-mini {
+      font-size: 2rem;
+    }
+
+    /* ── INFO PRODUCTO ────────────────────────── */
+    .detalle-info {
+      padding-top: 8px;
+    }
+
+    .detalle-volver {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .8rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 24px;
+      transition: color .2s;
+    }
+
+    .detalle-volver:hover { color: var(--gold); }
+
+    .detalle-cat {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .detalle-nombre {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--black);
+      margin-bottom: 16px;
+    }
+
+    .detalle-precio {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+
+    .detalle-precio small {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .detalle-stock-badge {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+    }
+
+    .detalle-stock-badge.ok { background: #e8f5e9; color: #2e7d32; }
+    .detalle-stock-badge.low { background: #fff8e1; color: #f57c00; }
+    .detalle-stock-badge.out { background: #fce4e4; color: #c62828; }
+
+    .detalle-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0;
+    }
+
+    /* ── TALLAS ───────────────────────────────── */
+    .tallas-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+
+    .tallas-label span {
+      font-weight: 400;
+      color: var(--muted);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .tallas-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .talla-btn {
+      min-width: 52px;
+      height: 44px;
+      padding: 0 12px;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--black);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all .18s;
+    }
+
+    .talla-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .talla-btn.selected {
+      background: var(--black);
+      border-color: var(--black);
+      color: var(--white);
+    }
+
+    /* ── BOTÓN WHATSAPP ───────────────────────── */
+    .btn-detalle-wa {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: var(--green);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      transition: opacity .2s, transform .15s;
+    }
+
+    .btn-detalle-wa:hover {
+      opacity: .9;
+      transform: translateY(-1px);
+    }
+
+    .btn-detalle-wa.agotado {
+      background: var(--muted);
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: .6;
+    }
+
+    .wa-aviso {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .72rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ── DESCRIPCION ──────────────────────────── */
+    .detalle-desc-titulo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin: 28px 0 10px;
+    }
+
+    .detalle-desc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── LOADING ──────────────────────────────── */
+    .detalle-loading {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 20px;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--muted);
+    }
+
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── MOBILE ───────────────────────────────── */
+    @media (max-width: 720px) {
+      .detalle-wrap {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 24px 16px 60px;
+      }
+      .galeria { position: static; }
+      .detalle-nombre { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    ✦ Envíos a todo el Perú &nbsp;·&nbsp; Escríbenos por WhatsApp &nbsp;·&nbsp; Productos 100% Originales ✦
+  </div>
+
+  <nav>
+    <div class="nav-logo">VITOP<span>.</span></div>
+    <div></div>
+    <a href="https://wa.me/51961836500?text=Hola%20Vitop%20Store!" class="nav-wa" target="_blank">💬 WhatsApp</a>
+  </nav>
+
+  <div class="detalle-wrap" id="detalle-wrap">
+    <div class="detalle-loading">
+      <div class="spinner"></div>
+      Cargando producto...
+    </div>
+  </div>
+
+  <div class="banner-wa">
+    <div>
+      <h3>¿Tienes alguna duda?</h3>
+      <p>Escríbenos y te respondemos al instante</p>
+    </div>
+    <a href="https://wa.me/51961836500?text=Hola%20Vitop!%20Tengo%20una%20pregunta%20🛍️"
+       class="btn-wa-banner" target="_blank">💬 Escribir por WhatsApp</a>
+  </div>
+
+  <footer>
+    <div class="footer-logo">VITOP<span>.</span></div>
+    <p>© 2025 Vitop Store · Hecho con ❤️ en Perú</p>
+    <a href="https://wa.me/51961836500" class="footer-wa" target="_blank">💬 WhatsApp</a>
+  </footer>
+
+  <a href="https://wa.me/51961836500?text=Hola%20Vitop%20Store!%20🛍️"
+     class="wa-float" target="_blank" title="Escríbenos">💬</a>
+
+<script>
+const WA_NUMBER = "51961836500";
+const SHEET_URL = "https://corsproxy.io/?" + encodeURIComponent(
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vTs97ABaxAcqTiWE-FimeAb96n9asWvXlo9H-QvUKXNtvq-I-H9JoqMZ3RHXAfokC09JaykIUXvGvoT/pub?gid=1777311677&single=true&output=csv"
+);
+
+// Leer handle desde la URL: producto.html?h=nike-air-max-...
+const params = new URLSearchParams(window.location.search);
+const handleBuscado = params.get("h");
+
+function parsearCSV(texto) {
+  const lineas = texto.trim().split("\n");
+  const headers = lineas[0].split(",").map(h => h.trim().replace(/"/g, ""));
+  return lineas.slice(1).map(linea => {
+    const cols = [];
+    let dentroComillas = false;
+    let actual = "";
+    for (let i = 0; i < linea.length; i++) {
+      const c = linea[i];
+      if (c === '"') { dentroComillas = !dentroComillas; }
+      else if (c === ',' && !dentroComillas) { cols.push(actual.trim()); actual = ""; }
+      else { actual += c; }
+    }
+    cols.push(actual.trim());
+    const obj = {};
+    headers.forEach((h, i) => { obj[h] = (cols[i] || "").replace(/"/g, "").trim(); });
+    return obj;
+  });
+}
+
+function convertirDriveURL(url) {
+  if (!url) return "";
+  const m1 = url.match(/id=([\w-]+)/);
+  if (m1) return `https://drive.google.com/thumbnail?id=${m1[1]}&sz=w800`;
+  const m2 = url.match(/\/d\/([\w-]+)\//);
+  if (m2) return `https://drive.google.com/thumbnail?id=${m2[1]}&sz=w800`;
+  return url;
+}
+
+function limpiarNombre(nombre) {
+  return nombre
+    .replace(/^SKU:\s*[\w-]+\s*/i, "")
+    .replace(/^\d{6}\s*[-–]\s*[\w]+\s*/i, "")
+    .replace(/^\d{6}\s*[-–]\s*/i, "")
+    .trim();
+}
+
+function mensajeWA(nombre, precio, talla) {
+  return encodeURIComponent(
+    `Hola Vitop Store! 🛍️\nQuiero pedir:\n*${nombre}*\n💰 Precio: S/ ${precio}\n📐 Talla elegida: ${talla}\n¿Hay stock disponible?`
+  );
+}
+
+let tallaSeleccionada = "";
+
+function renderDetalle(p) {
+  const nombre  = limpiarNombre(p.Nombre || "");
+  const precio  = parseFloat(p.Precio) || 0;
+  const stock   = parseInt(p.Stock) || 0;
+  const tallas  = (p.Tallas || "").split(",").map(t => t.trim()).filter(Boolean);
+  const hayStock = stock > 0;
+
+  // Recoger hasta 4 imágenes
+  const imgs = [
+    convertirDriveURL(p["Imagen1"] || p["Imagen"] || ""),
+    convertirDriveURL(p["Imagen2"] || ""),
+    convertirDriveURL(p["Imagen3"] || ""),
+    convertirDriveURL(p["Imagen4"] || ""),
+  ].filter(Boolean);
+
+  const EMOJI_CAT = {
+    "Zapatilla Hombre": "👟", "Zapatilla Mujer": "👠",
+    "ZAPATO BOTIN HOMBRE": "🥾", "Polo Hombre": "👕",
+    "Polo Mujer": "👚", "Medias": "🧦", "UNISEX": "👟",
+  };
+  const em = EMOJI_CAT[p.Categoria] || "🛍️";
+
+  // Badge stock
+  const badgeClass = !hayStock ? "out" : stock <= 2 ? "low" : "ok";
+  const badgeText  = !hayStock ? "Sin stock" : stock <= 2 ? `⚡ Solo ${stock} disponible${stock > 1 ? "s" : ""}` : `✓ ${stock} en stock`;
+
+  // Imagen principal
+  const imgPrincipalHTML = imgs.length > 0
+    ? `<img id="img-principal" src="${imgs[0]}" alt="${nombre}" onerror="this.style.display='none';document.getElementById('emoji-fallback').style.display='flex'">`
+    : "";
+  const emojiFallbackStyle = imgs.length > 0 ? "display:none" : "";
+
+  // Miniaturas
+  const miniaturasHTML = imgs.map((url, i) => `
+    <div class="miniatura ${i === 0 ? "active" : ""}" data-idx="${i}" onclick="cambiarFoto(${i})">
+      <img src="${url}" alt="foto ${i+1}" onerror="this.parentElement.innerHTML='<span class=emoji-mini>${em}</span>'">
+    </div>
+  `).join("");
+
+  // Si hay menos de 4 fotos, rellenar con placeholders vacíos
+  const placeholders = imgs.length < 4
+    ? Array(4 - imgs.length).fill(`<div class="miniatura" style="opacity:.3"><span class="emoji-mini">${em}</span></div>`).join("")
+    : "";
+
+  // Tallas
+  const tallasHTML = tallas.map(t => `
+    <button class="talla-btn" onclick="seleccionarTalla(this, '${t}')">${t}</button>
+  `).join("");
+
+  document.title = `${nombre} — VITOP STORE`;
+
+  document.getElementById("detalle-wrap").innerHTML = `
+    <!-- GALERÍA -->
+    <div class="galeria">
+      <a href="index.html" class="detalle-volver">← Volver al catálogo</a>
+      <div class="galeria-principal">
+        ${imgPrincipalHTML}
+        <div id="emoji-fallback" class="emoji-fallback" style="${emojiFallbackStyle}">${em}</div>
+      </div>
+      <div class="miniaturas">
+        ${miniaturasHTML}
+        ${placeholders}
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="detalle-info">
+      <div class="detalle-cat">${p.Categoria || ""}</div>
+      <div class="detalle-nombre">${nombre}</div>
+      <div class="detalle-precio">S/ ${precio.toFixed(2)} <small>/ und</small></div>
+      <span class="detalle-stock-badge ${badgeClass}">${badgeText}</span>
+
+      <hr class="detalle-divider">
+
+      ${tallas.length > 0 ? `
+        <div class="tallas-label">Talla <span id="talla-elegida">— Selecciona una</span></div>
+        <div class="tallas-grid">${tallasHTML}</div>
+      ` : ""}
+
+      <a id="btn-wa" href="#" class="${hayStock ? "btn-detalle-wa" : "btn-detalle-wa agotado"}"
+         target="${hayStock ? "_blank" : ""}">
+        ${hayStock ? "💬 Pedir por WhatsApp" : "😔 Producto agotado"}
+      </a>
+      ${hayStock ? `<p class="wa-aviso">Selecciona una talla antes de pedirlo 👆</p>` : ""}
+
+      <hr class="detalle-divider">
+
+      <div class="detalle-desc-titulo">Descripción</div>
+      <div class="detalle-desc">${p.Descripcion || p.Nombre || "Producto original. Consulta disponibilidad por WhatsApp."}</div>
+    </div>
+  `;
+
+  // Guardar imgs globalmente para cambiarFoto
+  window._imgs = imgs;
+  window._producto = { nombre, precio, tallas, hayStock };
+}
+
+function cambiarFoto(idx) {
+  const imgs = window._imgs || [];
+  if (!imgs[idx]) return;
+  const principal = document.getElementById("img-principal");
+  if (principal) {
+    principal.style.opacity = "0";
+    setTimeout(() => {
+      principal.src = imgs[idx];
+      principal.style.opacity = "1";
+    }, 150);
+  }
+  document.querySelectorAll(".miniatura").forEach((m, i) => {
+    m.classList.toggle("active", i === idx);
+  });
+}
+
+function seleccionarTalla(btn, talla) {
+  document.querySelectorAll(".talla-btn").forEach(b => b.classList.remove("selected"));
+  btn.classList.add("selected");
+  tallaSeleccionada = talla;
+
+  const labelEl = document.getElementById("talla-elegida");
+  if (labelEl) labelEl.textContent = `— ${talla}`;
+
+  const p = window._producto;
+  if (!p || !p.hayStock) return;
+
+  const btnWA = document.getElementById("btn-wa");
+  if (btnWA) {
+    btnWA.href = `https://wa.me/${WA_NUMBER}?text=${mensajeWA(p.nombre, p.precio, talla)}`;
+  }
+}
+
+// ── Cargar datos ──────────────────────────────────────
+if (!handleBuscado) {
+  document.getElementById("detalle-wrap").innerHTML = `
+    <div class="detalle-loading">
+      <p>Producto no encontrado.</p>
+      <a href="index.html" style="color:var(--gold)">← Volver al catálogo</a>
+    </div>`;
+} else {
+  fetch(SHEET_URL)
+    .then(r => r.text())
+    .then(csv => {
+      const productos = parsearCSV(csv);
+      const producto = productos.find(p =>
+        (p.Handle || "").toLowerCase().trim() === handleBuscado.toLowerCase().trim()
+      );
+      if (producto) {
+        renderDetalle(producto);
+      } else {
+        // Fallback: intentar desde JSON local
+        return fetch("productos_vitop.json")
+          .then(r => r.json())
+          .then(data => {
+            const p = data.find(x => x.handle === handleBuscado);
+            if (p) {
+              renderDetalle({
+                Handle: p.handle, Nombre: p.nombre, Categoria: p.categoria,
+                Precio: p.precio, Stock: p.stock_total,
+                Tallas: (p.tallas || []).join(", "),
+                "Imagen1": p.imagen || "", Descripcion: p.descripcion || ""
+              });
+            } else {
+              document.getElementById("detalle-wrap").innerHTML = `
+                <div class="detalle-loading">
+                  <p>Producto no encontrado.</p>
+                  <a href="index.html" style="color:var(--gold)">← Volver al catálogo</a>
+                </div>`;
+            }
+          });
+      }
+    })
+    .catch(() => {
+      document.getElementById("detalle-wrap").innerHTML = `
+        <div class="detalle-loading">
+          <p>Error al cargar. Intenta de nuevo.</p>
+          <a href="index.html" style="color:var(--gold)">← Volver al catálogo</a>
+        </div>`;
+    });
+}
+</script>
+</body>
+</html>
