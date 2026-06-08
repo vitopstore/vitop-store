@@ -5,8 +5,9 @@
 
 const WA_NUMBER = "51961836500";
 
-const SHEET_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vTs97ABaxAcqTiWE-FimeAb96n9asWvXlo9H-QvUKXNtvq-I-H9JoqMZ3RHXAfokC09JaykIUXvGvoT/pub?gid=1777311677&single=true&output=csv";
+const SHEET_URL = "https://corsproxy.io/?" + encodeURIComponent(
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vTs97ABaxAcqTiWE-FimeAb96n9asWvXlo9H-QvUKXNtvq-I-H9JoqMZ3RHXAfokC09JaykIUXvGvoT/pub?gid=1777311677&single=true&output=csv"
+);
 function convertirDriveURL(url) {
   if (!url) return "";
   const match = url.match(/id=([\w-]+)/);
@@ -199,10 +200,11 @@ function iniciarApp(productos) {
     const hayStock = stock > 0;
     const em = emoji(p.Categoria);
 
-    const img = p.Imagen
-  ? `<img src="${convertirDriveURL(p.Imagen)}" style="width:100%;height:200px;object-fit:cover;">`
-  : `<div style="font-size:5rem;display:flex;align-items:center;justify-content:center;height:200px;background:#f5f5f5">${em}</div>`;
+    const imagen = p.Imagen1 || p.Imagen || "";
 
+const img = imagen
+  ? `<img src="${convertirDriveURL(imagen)}" style="width:100%;height:200px;object-fit:cover;">`
+  : `<div style="font-size:5rem;display:flex;align-items:center;justify-content:center;height:200px;background:#f5f5f5">${em}</div>`;
     const badge = !hayStock
       ? `<span class="badge badge-agotado">Agotado</span>`
       : stock <= 2
