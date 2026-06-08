@@ -619,27 +619,26 @@ footer p { font-size: 0.72rem; color: #444; }
   align-items: center;
   justify-content: center;
   font-size: 5rem;
-} /* ══════════════════════════════
-   AGREGAR AL FINAL DE styles.css
-   Overlay "Ver detalle" en tarjetas
-══════════════════════════════ */
- 
-/* Overlay al hover en tarjeta */
+}/* Overlay elegante — solo un ícono pequeño en esquina */
 .overlay-detalle {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
-  background: rgba(12, 12, 12, 0.72);
-  color: #fff;
+  top: 10px;
+  right: 10px;
+  background: rgba(255,255,255,0.92);
+  color: var(--black);
   font-family: 'Montserrat', sans-serif;
-  font-size: .75rem;
+  font-size: .65rem;
   font-weight: 600;
-  letter-spacing: .1em;
-  text-align: center;
-  padding: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 20px;
   opacity: 0;
-  transform: translateY(4px);
-  transition: opacity .22s ease, transform .22s ease;
+  transform: translateY(-4px);
+  transition: opacity .2s ease, transform .2s ease;
   pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
  
 .producto:hover .overlay-detalle {
@@ -647,14 +646,14 @@ footer p { font-size: 0.72rem; color: #444; }
   transform: translateY(0);
 }
  
-/* Tarjeta clickeable — cursor y sombra */
+/* Tarjeta — sombra suave al hover */
 .producto {
   transition: box-shadow .22s ease, transform .22s ease;
 }
  
 .producto:hover {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+  transform: translateY(-2px);
 }
  
 /* Imagen fija en tarjeta */
@@ -681,7 +680,7 @@ footer p { font-size: 0.72rem; color: #444; }
 }
  
 .producto:hover .producto-img img {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
  
 .producto-img > div {
@@ -694,3 +693,4 @@ footer p { font-size: 0.72rem; color: #444; }
   justify-content: center;
   font-size: 5rem;
 }
+ 
