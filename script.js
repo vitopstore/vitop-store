@@ -222,18 +222,13 @@ function iniciarApp(productos) {
           <div class="producto-tallas">${tallasHTML}</div>
           <div class="producto-stock">${stockLabel}</div>
           <div class="producto-footer">
-${descuento > 0
-              ? `<div class="precio-nike-wrap">
-                  <div class="precio-nike-fila">
-                    <span class="precio-nike-nuevo">S/ ${precioFinal}</span>
-                    <span class="precio-nike-original">S/ ${precio}</span>
-                  </div>
-                  <div class="precio-nike-label">${descuento}% de descuento</div>
-                 </div>\`
-              : \`<div class="precio-nike-wrap">
-                  <span class="precio-nike-normal">S/ ${precio}</span>
-                 </div>\`
-            }
+${(() => {
+              if (descuento > 0) {
+                return '<div class="precio-nike-wrap"><div class="precio-nike-fila"><span class="precio-nike-nuevo">S/ ' + precioFinal + '</span><span class="precio-nike-original">S/ ' + precio + '</span></div><div class="precio-nike-label">' + descuento + '% de descuento</div></div>';
+              } else {
+                return '<div class="precio-nike-wrap"><span class="precio-nike-normal">S/ ' + precio + '</span></div>';
+              }
+            })()}
             ${btnWA}
           </div>
         </div>
