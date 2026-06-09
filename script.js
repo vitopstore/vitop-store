@@ -170,7 +170,7 @@ function iniciarApp(productos) {
   function tarjeta(p) {
     const nombre      = limpiarNombre(p.Nombre);
     const precio      = parseFloat(p.Precio) || 0;
-    const descuento   = parseInt(p.Descuento) || 0;
+    const descuento   = parseFloat((p.Descuento || "").toString().trim()) || 0;
     const precioFinal = descuento > 0 ? Math.round(precio * (1 - descuento/100) * 10) / 10 : precio;
     const stock       = parseInt(p.Stock) || 0;
     const tallas      = p.Tallas || "";
