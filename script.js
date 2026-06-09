@@ -1,4 +1,3 @@
- · JS
 // ══════════════════════════════
 //   VITOP STORE — script.js
 //   Conectado a Google Sheets
@@ -225,11 +224,11 @@ function iniciarApp(productos) {
           <div class="producto-footer">
 ${descuento > 0
               ? `<div class="producto-precio">
-                  <span class="precio-oferta">S/ ${precioFinal.toFixed(2)}</span>
-                  <span class="precio-original">S/ ${precio.toFixed(2)}</span>
+                  <span class="precio-oferta">S/ ${precioFinal}</span>
+                  <span class="precio-original">S/ ${precio}</span>
                   <span class="badge-descuento">-${descuento}%</span>
                  </div>`
-              : `<div class="producto-precio">S/ ${precio.toFixed(2)} <small>/ und</small></div>`
+              : `<div class="producto-precio">S/ ${precio} <small>/ und</small></div>`
             }
             ${btnWA}
           </div>
