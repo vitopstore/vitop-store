@@ -417,9 +417,9 @@ nav {
 }
  
 .producto-precio {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
   color: var(--black);
   line-height: 1;
   display: flex;
@@ -432,6 +432,36 @@ nav {
   font-size: 0.72rem;
   color: var(--muted);
   font-weight: 400;
+}
+
+/* Precio con descuento — misma tipografía elegante */
+.precio-oferta {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.precio-original {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--muted);
+  text-decoration: line-through;
+  margin-left: 4px;
+}
+
+.badge-descuento {
+  display: inline-block;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  margin-left: 4px;
+  vertical-align: middle;
 }
  
 /* stock display */
@@ -677,32 +707,4 @@ footer p { font-size: 0.72rem; color: #444; }
   font-size: 5rem;
 }
  
-/* ── PRECIOS CON DESCUENTO ─────────────────── */
-.precio-oferta {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--black);
-}
- 
-.precio-original {
-  font-family: 'Montserrat', sans-serif;
-  font-size: .85rem;
-  font-weight: 400;
-  color: var(--muted);
-  text-decoration: line-through;
-  margin-left: 6px;
-}
- 
-.badge-descuento {
-  display: inline-block;
-  background: #e8f5e9;
-  color: #2e7d32;
-  font-family: 'Montserrat', sans-serif;
-  font-size: .68rem;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 20px;
-  margin-left: 6px;
-  vertical-align: middle;
-}
+/* precio con descuento — ya definido arriba */
