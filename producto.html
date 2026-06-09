@@ -376,6 +376,7 @@ function limpiarNombre(nombre) {
     .replace(/^SKU:\s*[\w-]+\s*/i, "")
     .replace(/^\d{6}\s*[-–]\s*[\w]+\s*/i, "")
     .replace(/^\d{6}\s*[-–]\s*/i, "")
+    .replace(/^[\d\s\-–]+/, "")
     .trim();
 }
 
@@ -388,11 +389,13 @@ function mensajeWA(nombre, precio, talla) {
 let tallaSeleccionada = "";
 
 function renderDetalle(p) {
-  const nombre  = limpiarNombre(p.Nombre || "");
-  const precio  = parseFloat(p.Precio) || 0;
-  const stock   = parseInt(p.Stock) || 0;
-  const tallas  = (p.Tallas || "").split(",").map(t => t.trim()).filter(Boolean);
-  const hayStock = stock > 0;
+  const nombre     = limpiarNombre(p.Nombre || "");
+  const precio     = parseFloat(p.Precio) || 0;
+  const descuento  = parseInt(p.Descuento) || 0;
+  const precioFinal = descuento > 0 ? Math.round(precio * (1 - descuento / 100) * 10) / 10 : precio;
+  const stock      = parseInt(p.Stock) || 0;
+  const tallas     = (p.Tallas || "").split(",").map(t => t.trim()).filter(Boolean);
+  const hayStock   = stock > 0;
 
   // Recoger hasta 4 imágenes
   const imgs = [
@@ -419,17 +422,12 @@ function renderDetalle(p) {
     : "";
   const emojiFallbackStyle = imgs.length > 0 ? "display:none" : "";
 
-  // Miniaturas
-  const miniaturasHTML = imgs.map((url, i) => `
+  // Solo miniaturas reales, sin placeholders vacíos
+  const miniaturasHTML = imgs.length > 1 ? imgs.map((url, i) => `
     <div class="miniatura ${i === 0 ? "active" : ""}" data-idx="${i}" onclick="cambiarFoto(${i})">
-      <img src="${url}" alt="foto ${i+1}" onerror="this.parentElement.innerHTML='<span class=emoji-mini>${em}</span>'">
+      <img src="${url}" alt="foto ${i+1}" onerror="this.parentElement.style.display='none'">
     </div>
-  `).join("");
-
-  // Si hay menos de 4 fotos, rellenar con placeholders vacíos
-  const placeholders = imgs.length < 4
-    ? Array(4 - imgs.length).fill(`<div class="miniatura" style="opacity:.3"><span class="emoji-mini">${em}</span></div>`).join("")
-    : "";
+  `).join("") : "";
 
   // Tallas
   const tallasHTML = tallas.map(t => `
@@ -448,7 +446,6 @@ function renderDetalle(p) {
       </div>
       <div class="miniaturas">
         ${miniaturasHTML}
-        ${placeholders}
       </div>
     </div>
 
@@ -456,7 +453,14 @@ function renderDetalle(p) {
     <div class="detalle-info">
       <div class="detalle-cat">${p.Categoria || ""}</div>
       <div class="detalle-nombre">${nombre}</div>
-      <div class="detalle-precio">S/ ${precio.toFixed(2)} <small>/ und</small></div>
+      <div class="detalle-precio">
+        ${descuento > 0
+          ? `<span style="font-size:2rem;font-weight:700;color:var(--black)">S/ ${precioFinal.toFixed(2)}</span>
+             <span style="font-size:1.1rem;font-weight:400;color:var(--muted);text-decoration:line-through;margin-left:10px">S/ ${precio.toFixed(2)}</span>
+             <span style="background:#e8f5e9;color:#2e7d32;font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:8px;vertical-align:middle">-${descuento}% OFF</span>`
+          : `S/ ${precio.toFixed(2)} <small>/ und</small>`
+        }
+      </div>
       <span class="detalle-stock-badge ${badgeClass}">${badgeText}</span>
 
       <hr class="detalle-divider">
@@ -481,7 +485,7 @@ function renderDetalle(p) {
 
   // Guardar imgs globalmente para cambiarFoto
   window._imgs = imgs;
-  window._producto = { nombre, precio, tallas, hayStock };
+  window._producto = { nombre, precio: precioFinal, tallas, hayStock };
 }
 
 function cambiarFoto(idx) {
