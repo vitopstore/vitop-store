@@ -263,6 +263,40 @@
       line-height: 1.7;
     }
 
+    /* ── PRECIO CON DESCUENTO estilo Nike ────── */
+    .detalle-precio-wrap {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .detalle-precio-oferta {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .detalle-precio-original {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    .detalle-badge-desc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      color: #2e7d32;
+      background: #e8f5e9;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
     /* ── LOADING ──────────────────────────────── */
     .detalle-loading {
       grid-column: 1 / -1;
@@ -338,7 +372,6 @@ const SHEET_URL = "https://corsproxy.io/?" + encodeURIComponent(
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vTs97ABaxAcqTiWE-FimeAb96n9asWvXlo9H-QvUKXNtvq-I-H9JoqMZ3RHXAfokC09JaykIUXvGvoT/pub?gid=1777311677&single=true&output=csv"
 );
 
-// Leer handle desde la URL: producto.html?h=nike-air-max-...
 const params = new URLSearchParams(window.location.search);
 const handleBuscado = params.get("h");
 
@@ -371,6 +404,7 @@ function convertirDriveURL(url) {
   return url;
 }
 
+// ── FIX COMPLETO: elimina códigos numéricos y guiones al inicio ──
 function limpiarNombre(nombre) {
   return nombre
     .replace(/^SKU:\s*[\w-]+\s*/i, "")
@@ -389,21 +423,14 @@ function mensajeWA(nombre, precio, talla) {
 let tallaSeleccionada = "";
 
 function renderDetalle(p) {
-  const nombre     = limpiarNombre(p.Nombre || "");
-  const precio     = parseFloat(p.Precio) || 0;
-  const descuento  = parseInt(p.Descuento) || 0;
+  const nombre      = limpiarNombre(p.Nombre || "");
+  const precio      = parseFloat(p.Precio) || 0;
+  // Descuento: lee columna "Descuento" del Sheet (puede venir como "50" o "50%")
+  const descuento   = parseInt(String(p.Descuento || "").replace("%", "")) || 0;
   const precioFinal = descuento > 0 ? Math.round(precio * (1 - descuento / 100) * 10) / 10 : precio;
-  const stock      = parseInt(p.Stock) || 0;
-  const tallas     = (p.Tallas || "").split(",").map(t => t.trim()).filter(Boolean);
-  const hayStock   = stock > 0;
-
-  // Recoger hasta 4 imágenes
-  const imgs = [
-    convertirDriveURL(p["Imagen1"] || p["Imagen"] || ""),
-    convertirDriveURL(p["Imagen2"] || ""),
-    convertirDriveURL(p["Imagen3"] || ""),
-    convertirDriveURL(p["Imagen4"] || ""),
-  ].filter(Boolean);
+  const stock       = parseInt(p.Stock) || 0;
+  const tallas      = (p.Tallas || "").split(",").map(t => t.trim()).filter(Boolean);
+  const hayStock    = stock > 0;
 
   const EMOJI_CAT = {
     "Zapatilla Hombre": "👟", "Zapatilla Mujer": "👠",
@@ -412,27 +439,51 @@ function renderDetalle(p) {
   };
   const em = EMOJI_CAT[p.Categoria] || "🛍️";
 
+  // Recoger hasta 4 imágenes (solo las que existen)
+  const imgs = [
+    convertirDriveURL(p["Imagen1"] || p["Imagen"] || ""),
+    convertirDriveURL(p["Imagen2"] || ""),
+    convertirDriveURL(p["Imagen3"] || ""),
+    convertirDriveURL(p["Imagen4"] || ""),
+  ].filter(Boolean);
+
   // Badge stock
   const badgeClass = !hayStock ? "out" : stock <= 2 ? "low" : "ok";
-  const badgeText  = !hayStock ? "Sin stock" : stock <= 2 ? `⚡ Solo ${stock} disponible${stock > 1 ? "s" : ""}` : `✓ ${stock} en stock`;
+  const badgeText  = !hayStock
+    ? "Sin stock"
+    : stock <= 2
+      ? `⚡ Solo ${stock} disponible${stock > 1 ? "s" : ""}`
+      : `✓ ${stock} en stock`;
 
   // Imagen principal
   const imgPrincipalHTML = imgs.length > 0
-    ? `<img id="img-principal" src="${imgs[0]}" alt="${nombre}" onerror="this.style.display='none';document.getElementById('emoji-fallback').style.display='flex'">`
+    ? `<img id="img-principal" src="${imgs[0]}" alt="${nombre}"
+         onerror="this.style.display='none';document.getElementById('emoji-fallback').style.display='flex'">`
     : "";
   const emojiFallbackStyle = imgs.length > 0 ? "display:none" : "";
 
-  // Solo miniaturas reales, sin placeholders vacíos
-  const miniaturasHTML = imgs.length > 1 ? imgs.map((url, i) => `
-    <div class="miniatura ${i === 0 ? "active" : ""}" data-idx="${i}" onclick="cambiarFoto(${i})">
-      <img src="${url}" alt="foto ${i+1}" onerror="this.parentElement.style.display='none'">
-    </div>
-  `).join("") : "";
+  // Miniaturas: solo si hay 2+ fotos, sin placeholders vacíos
+  const miniaturasHTML = imgs.length > 1
+    ? imgs.map((url, i) => `
+        <div class="miniatura ${i === 0 ? "active" : ""}" onclick="cambiarFoto(${i})">
+          <img src="${url}" alt="foto ${i+1}" onerror="this.parentElement.style.display='none'">
+        </div>`
+      ).join("")
+    : "";
+
+  // Precio: estilo Nike con descuento
+  const precioHTML = descuento > 0
+    ? `<div class="detalle-precio-wrap">
+         <span class="detalle-precio-oferta">S/ ${precioFinal.toFixed(2)}</span>
+         <span class="detalle-precio-original">S/ ${precio.toFixed(2)}</span>
+         <span class="detalle-badge-desc">-${descuento}% de descuento</span>
+       </div>`
+    : `<div class="detalle-precio">S/ ${precio.toFixed(2)} <small>/ und</small></div>`;
 
   // Tallas
-  const tallasHTML = tallas.map(t => `
-    <button class="talla-btn" onclick="seleccionarTalla(this, '${t}')">${t}</button>
-  `).join("");
+  const tallasHTML = tallas.map(t =>
+    `<button class="talla-btn" onclick="seleccionarTalla(this, '${t}')">${t}</button>`
+  ).join("");
 
   document.title = `${nombre} — VITOP STORE`;
 
@@ -444,23 +495,16 @@ function renderDetalle(p) {
         ${imgPrincipalHTML}
         <div id="emoji-fallback" class="emoji-fallback" style="${emojiFallbackStyle}">${em}</div>
       </div>
-      <div class="miniaturas">
-        ${miniaturasHTML}
-      </div>
+      ${miniaturasHTML ? `<div class="miniaturas">${miniaturasHTML}</div>` : ""}
     </div>
 
     <!-- INFO -->
     <div class="detalle-info">
       <div class="detalle-cat">${p.Categoria || ""}</div>
       <div class="detalle-nombre">${nombre}</div>
-      <div class="detalle-precio">
-        ${descuento > 0
-          ? `<span style="font-size:2rem;font-weight:700;color:var(--black)">S/ ${precioFinal.toFixed(2)}</span>
-             <span style="font-size:1.1rem;font-weight:400;color:var(--muted);text-decoration:line-through;margin-left:10px">S/ ${precio.toFixed(2)}</span>
-             <span style="background:#e8f5e9;color:#2e7d32;font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:8px;vertical-align:middle">-${descuento}% OFF</span>`
-          : `S/ ${precio.toFixed(2)} <small>/ und</small>`
-        }
-      </div>
+
+      ${precioHTML}
+
       <span class="detalle-stock-badge ${badgeClass}">${badgeText}</span>
 
       <hr class="detalle-divider">
@@ -475,15 +519,9 @@ function renderDetalle(p) {
         ${hayStock ? "💬 Pedir por WhatsApp" : "😔 Producto agotado"}
       </a>
       ${hayStock ? `<p class="wa-aviso">Selecciona una talla antes de pedirlo 👆</p>` : ""}
-
-      <hr class="detalle-divider">
-
-      <div class="detalle-desc-titulo">Descripción</div>
-      <div class="detalle-desc">${p.Descripcion || p.Nombre || "Producto original. Consulta disponibilidad por WhatsApp."}</div>
     </div>
   `;
 
-  // Guardar imgs globalmente para cambiarFoto
   window._imgs = imgs;
   window._producto = { nombre, precio: precioFinal, tallas, hayStock };
 }
