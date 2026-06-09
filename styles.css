@@ -656,21 +656,23 @@ footer p { font-size: 0.72rem; color: #444; }
   justify-content: center;
   font-size: 5rem;
 }/* Overlay elegante — solo un ícono pequeño en esquina */
-* ══════════════════════════════════════════════
+* ════════════════════════════════════════════════════════
+   /* ══════════════════════════════════════════════
    VITOP STORE — bloque a pegar al FINAL de styles.css
    (reemplaza TODO lo que hayas agregado antes al final)
 ══════════════════════════════════════════════ */
- /* Tarjeta — cursor pointer y sombra suave */
+
+/* Tarjeta — cursor pointer y sombra suave */
 .producto {
   cursor: pointer;
   transition: box-shadow .22s ease, transform .20s ease;
 }
- 
+
 .producto:hover {
   box-shadow: 0 6px 20px rgba(0,0,0,0.10);
   transform: translateY(-2px);
 }
- 
+
 /* Imagen fija y zoom suave */
 .producto-img {
   width: 100%;
@@ -682,22 +684,22 @@ footer p { font-size: 0.72rem; color: #444; }
   overflow: hidden;
   flex-shrink: 0;
 }
- 
+
 .producto-img img {
   position: absolute;
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
-  padding: 0;
+  padding: 16px;
   transition: transform .45s ease;
 }
- 
+
 .producto:hover .producto-img img {
   transform: scale(1.07);
 }
- 
+
 .producto-img > div {
   position: absolute;
   top: 0; left: 0;
@@ -708,5 +710,144 @@ footer p { font-size: 0.72rem; color: #444; }
   justify-content: center;
   font-size: 5rem;
 }
- 
-/* precio con descuento — ya definido arriba */
+
+/* ── PRECIOS CON DESCUENTO ─────────────────── */
+.precio-oferta {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.precio-original {
+  font-family: 'Montserrat', sans-serif;
+  font-size: .85rem;
+  font-weight: 400;
+  color: var(--muted);
+  text-decoration: line-through;
+  margin-left: 6px;
+}
+
+.badge-descuento {
+  display: inline-block;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* ── PRECIOS MEJORADOS ────────────────────────── */
+.producto-precio {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.producto-precio small {
+  font-size: .75rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* Precio con descuento en tarjeta */
+.precio-oferta {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.precio-original {
+  font-family: 'Montserrat', sans-serif;
+  font-size: .82rem;
+  font-weight: 400;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.badge-descuento {
+  display: inline-block;
+  background: #fff0f0;
+  color: #c62828;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+
+/* ══════════════════════════════
+   PRECIOS ESTILO NIKE
+══════════════════════════════ */
+
+/* Contenedor del precio en tarjeta */
+.precio-nike-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Precio sin descuento */
+.precio-nike-normal {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--black);
+  letter-spacing: -.01em;
+}
+
+/* Fila: precio nuevo + tachado */
+.precio-nike-fila {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Precio con descuento — negro y bold */
+.precio-nike-nuevo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--black);
+  letter-spacing: -.01em;
+}
+
+/* Precio original tachado — gris */
+.precio-nike-original {
+  font-family: 'Montserrat', sans-serif;
+  font-size: .88rem;
+  font-weight: 400;
+  color: #aaa;
+  text-decoration: line-through;
+  letter-spacing: -.01em;
+}
+
+/* "X% de descuento" en verde como Nike */
+.precio-nike-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: .72rem;
+  font-weight: 600;
+  color: #1a7a3c;
+  letter-spacing: .01em;
+}
+
+/* Ocultar el precio-footer antiguo si existe */
+.producto-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+}
