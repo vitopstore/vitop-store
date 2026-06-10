@@ -366,6 +366,22 @@
   <a href="https://wa.me/51961836500?text=Hola%20Vitop%20Store!%20🛍️"
      class="wa-float" target="_blank" title="Escríbenos">💬</a>
 
+
+<!-- MODAL GUÍA DE TALLAS -->
+<div class="modal-overlay" id="modalGuia" onclick="cerrarModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modalGuia').classList.remove('open')">✕</button>
+    <div class="modal-titulo">Guía de Tallas</div>
+    <div class="modal-subtitulo" id="modal-cat-label">Hombre — EU / US</div>
+    <ol class="modal-steps">
+      <li>Pon el pie sobre una superficie plana contra la pared.</li>
+      <li>Marca la medida del talón hasta tu dedo más largo.</li>
+      <li>Mide la distancia marcada y revisa la tabla.</li>
+    </ol>
+    <div id="modal-tabla-wrap"></div>
+  </div>
+</div>
+
 <script>
 const WA_NUMBER = "51961836500";
 const SHEET_URL = "https://corsproxy.io/?" + encodeURIComponent(
@@ -480,10 +496,32 @@ function renderDetalle(p) {
        </div>`
     : `<div class="detalle-precio">S/ ${precio.toFixed(2)} <small>/ und</small></div>`;
 
-  // Tallas
-  const tallasHTML = tallas.map(t =>
-    `<button class="talla-btn" onclick="seleccionarTalla(this, '${t}')">${t}</button>`
-  ).join("");
+  // Tallas — todas las EU del producto más tallas adicionales bloqueadas
+  // Definir rango completo según categoría
+  const TALLAS_HOMBRE_EU = ["40","40.5","41","42","42.5","43","44","44.5","45"];
+  const TALLAS_MUJER_EU  = ["35","35.5","36","36.5","37","37.5","38","38.5","39","39.5","40"];
+  const TALLAS_UNISEX    = ["35.5","36","37","38","38.5","40","40.5","42","44"];
+
+  const catLower = (p.Categoria || "").toLowerCase();
+  let tallasCompletas = [];
+  if (catLower.includes("mujer")) tallasCompletas = TALLAS_MUJER_EU;
+  else if (catLower.includes("hombre") || catLower.includes("botin")) tallasCompletas = TALLAS_HOMBRE_EU;
+  else if (catLower.includes("unisex")) tallasCompletas = TALLAS_UNISEX;
+
+  // Si hay tallas completas definidas, mostrar rango con disponibles/no disponibles
+  // Si no (medias, polos), solo mostrar las disponibles
+  const tallasHTML = tallasCompletas.length > 0
+    ? tallasCompletas.map(t => {
+        const disponible = tallas.includes(t);
+        if (disponible) {
+          return `<button class="talla-btn" onclick="seleccionarTalla(this, '${t}')">${t}</button>`;
+        } else {
+          return `<button class="talla-btn no-disponible" disabled title="Talla no disponible">${t}</button>`;
+        }
+      }).join("")
+    : tallas.map(t =>
+        `<button class="talla-btn" onclick="seleccionarTalla(this, '${t}')">${t}</button>`
+      ).join("");
 
   document.title = `${nombre} — VITOP STORE`;
 
@@ -510,7 +548,10 @@ function renderDetalle(p) {
       <hr class="detalle-divider">
 
       ${tallas.length > 0 ? `
-        <div class="tallas-label">Talla <span id="talla-elegida">— Selecciona una</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;">
+          <div class="tallas-label" style="margin-bottom:0">TALLA <span id="talla-elegida">— Selecciona una</span></div>
+          <span class="guia-tallas-link" onclick="window.open('guia-tallas.html','_blank')">Guía de tallas</span>
+        </div>
         <div class="tallas-grid">${tallasHTML}</div>
       ` : ""}
 
@@ -607,6 +648,59 @@ if (!handleBuscado) {
         </div>`;
     });
 }
+
+
+// ── GUÍA DE TALLAS ─────────────────────────────────
+const GUIA_HOMBRE = [
+  ["25 cm","40","7"], ["25.5 cm","40.5","7.5"], ["26 cm","41","8"],
+  ["26.5 cm","42","8.5"], ["27 cm","42.5","9"], ["27.5 cm","43","9.5"],
+  ["28 cm","44","10"], ["28.5 cm","44.5","10.5"], ["29 cm","45","11"]
+];
+const GUIA_MUJER = [
+  ["21.5 cm","35","5"], ["22 cm","35.5","5.5"], ["22.5 cm","36","6"],
+  ["23 cm","36.5","6.5"], ["23.5 cm","37","7"], ["24 cm","37.5","7.5"],
+  ["24.5 cm","38","8"], ["25 cm","38.5","8.5"], ["25.5 cm","39","9"],
+  ["26 cm","39.5","9.5"], ["26.5 cm","40","10"]
+];
+
+function abrirGuiaTallas(categoria) {
+  const catL = (categoria || "").toLowerCase();
+  const esHombre = catL.includes("hombre") || catL.includes("botin") || catL.includes("unisex");
+  const datos = esHombre ? GUIA_HOMBRE : GUIA_MUJER;
+  const label = esHombre ? "Hombre — EU / US" : "Mujer — EU / US";
+
+  document.getElementById("modal-cat-label").textContent = label;
+
+  const wrap = document.getElementById("modal-tabla-wrap");
+  wrap.innerHTML = `
+    <table class="guia-tabla">
+      <thead>
+        <tr>
+          <th>Medida del pie</th>
+          <th>Talla EU</th>
+          <th>Talla US</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${datos.map(([cm, eu, us]) =>
+          `<tr><td>${cm}</td><td><strong>${eu}</strong></td><td>${us}</td></tr>`
+        ).join("")}
+      </tbody>
+    </table>
+    <p style="font-family:'Montserrat',sans-serif;font-size:.68rem;color:#aaa;margin-top:12px;text-align:center">
+      Referencia Nike. Puede variar según modelo y marca.
+    </p>
+  `;
+
+  document.getElementById("modalGuia").classList.add("open");
+}
+
+function cerrarModal(e) {
+  if (e.target === document.getElementById("modalGuia")) {
+    document.getElementById("modalGuia").classList.remove("open");
+  }
+}
+
 </script>
 </body>
 </html>

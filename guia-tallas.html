@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía de Tallas — VITOP STORE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── GUÍA DE TALLAS ─────────────────────────── */
+    .guia-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .guia-header {
+      margin-bottom: 40px;
+    }
+
+    .guia-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .guia-titulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      font-weight: 400;
+      color: var(--black);
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .guia-desc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 540px;
+    }
+
+    /* ── CÓMO MEDIR ─────────────────────────────── */
+    .como-medir {
+      background: var(--light);
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin-bottom: 40px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .medir-icono {
+      font-size: 2.8rem;
+      line-height: 1;
+    }
+
+    .medir-titulo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 10px;
+    }
+
+    .medir-pasos {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.9;
+      padding-left: 16px;
+      margin: 0;
+    }
+
+    /* ── TABS MARCA ─────────────────────────────── */
+    .tabs-marca {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 0;
+      border-bottom: 2px solid var(--border);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs-marca::-webkit-scrollbar { display: none; }
+
+    .tab-marca {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 10px 18px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      transition: color .2s;
+    }
+
+    .tab-marca.active {
+      color: var(--black);
+      border-bottom-color: var(--black);
+    }
+
+    .tab-marca:hover { color: var(--black); }
+
+    /* ── TABS GÉNERO ────────────────────────────── */
+    .tabs-genero {
+      display: flex;
+      gap: 0;
+      margin: 24px 0 20px;
+    }
+
+    .tab-genero {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      color: var(--muted);
+      padding: 8px 20px;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      cursor: pointer;
+      transition: all .18s;
+    }
+
+    .tab-genero:first-child { border-radius: 6px 0 0 6px; }
+    .tab-genero:last-child  { border-radius: 0 6px 6px 0; border-left: none; }
+
+    .tab-genero.active {
+      background: var(--black);
+      border-color: var(--black);
+      color: var(--white);
+    }
+
+    /* ── TABLA ──────────────────────────────────── */
+    .tabla-wrap {
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    table.talla-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .76rem;
+      min-width: 500px;
+    }
+
+    .talla-table thead tr {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .talla-table th {
+      padding: 10px 14px;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: .08em;
+      font-size: .68rem;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .talla-table th:first-child { text-align: left; }
+
+    .talla-table td {
+      padding: 9px 14px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      color: var(--black);
+      white-space: nowrap;
+    }
+
+    .talla-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+      color: var(--muted);
+      font-size: .7rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      background: #fafaf8;
+    }
+
+    .talla-table tr:last-child td { border-bottom: none; }
+    .talla-table tr:hover td { background: #f4f1ea; }
+    .talla-table tr:hover td:first-child { background: #eeeae0; }
+
+    /* Destacar EU */
+    .talla-table td.eu-col {
+      font-weight: 700;
+      font-size: .82rem;
+    }
+
+    /* Panel de marca */
+    .panel-marca { display: none; }
+    .panel-marca.active { display: block; }
+    .panel-genero { display: none; }
+    .panel-genero.active { display: block; }
+
+    /* Nota al pie de tabla */
+    .tabla-nota {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .68rem;
+      color: var(--muted);
+      margin-top: 10px;
+      padding: 0 4px;
+      line-height: 1.6;
+    }
+
+    /* Subtítulo de sección (niños) */
+    .subtitulo-seccion {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 28px 0 12px;
+    }
+
+    /* Volver */
+    .guia-volver {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 32px;
+      transition: color .2s;
+    }
+    .guia-volver:hover { color: var(--gold); }
+
+    @media (max-width: 600px) {
+      .guia-titulo { font-size: 2rem; }
+      .como-medir { grid-template-columns: 1fr; gap: 12px; }
+      .tabs-marca { gap: 2px; }
+      .tab-marca { padding: 8px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  ✦ Envíos a todo el Perú &nbsp;·&nbsp; Escríbenos por WhatsApp &nbsp;·&nbsp; Productos 100% Originales ✦
+</div>
+
+<nav>
+  <div class="nav-logo">VITOP<span>.</span></div>
+  <div></div>
+  <a href="https://wa.me/51961836500" class="nav-wa" target="_blank">💬 WhatsApp</a>
+</nav>
+
+<div class="guia-wrap">
+
+  <a href="index.html" class="guia-volver">← Volver al catálogo</a>
+
+  <div class="guia-header">
+    <div class="guia-eyebrow">Referencia oficial por marca</div>
+    <h1 class="guia-titulo">Guía de <em>Tallas</em></h1>
+    <p class="guia-desc">Mide tu pie al final del día para mayor precisión. Las tallas EU son estándar internacional; si estás entre dos, elige la mayor para calzado deportivo.</p>
+  </div>
+
+  <!-- CÓMO MEDIR -->
+  <div class="como-medir">
+    <div class="medir-icono">📏</div>
+    <div>
+      <div class="medir-titulo">Cómo medir tu pie</div>
+      <ol class="medir-pasos">
+        <li>Coloca el pie sobre una hoja de papel con el talón apoyado en la pared.</li>
+        <li>Marca el punto más largo (dedo gordo o segundo dedo).</li>
+        <li>Mide la distancia desde la pared hasta la marca en centímetros.</li>
+        <li>Busca esa medida en la tabla de tu marca y encuentra tu talla EU.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- TABS MARCA -->
+  <div class="tabs-marca" id="tabsMarca">
+    <button class="tab-marca active" onclick="cambiarMarca('nike', this)">Nike</button>
+    <button class="tab-marca" onclick="cambiarMarca('adidas', this)">Adidas</button>
+    <button class="tab-marca" onclick="cambiarMarca('puma', this)">Puma</button>
+    <button class="tab-marca" onclick="cambiarMarca('cat', this)">CAT</button>
+  </div>
+
+  <!-- ═══════════════ NIKE ═══════════════ -->
+  <div class="panel-marca active" id="panel-nike">
+    <div class="tabs-genero">
+      <button class="tab-genero active" onclick="cambiarGenero('nike','hombre',this)">Hombre</button>
+      <button class="tab-genero" onclick="cambiarGenero('nike','mujer',this)">Mujer</button>
+      <button class="tab-genero" onclick="cambiarGenero('nike','ninos',this)">Niños</button>
+    </div>
+
+    <!-- Nike Hombre -->
+    <div class="panel-genero active" id="nike-hombre">
+      <div class="tabla-wrap">
+        <table class="talla-table">
+          <thead><tr>
+            <th>Medida</th><th>US H</th><th>US M</th><th class="eu-col">EU ★</th><th>PE</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Largo (cm)</td><td>US H</td><td>US M</td><td>EU</td><td>PE</td></tr>
+            <tr><td>24 cm</td><td>5.5</td><td>7</td><td class="eu-col">37</td><td>37</td></tr>
+            <tr><td>24 cm</td><td>6</td><td>7.5</td><td class="eu-col">38</td><td>37.5</td></tr>
+            <tr><td>24.5 cm</td><td>6.5</td><td>8</td><td class="eu-col">38.5</td><td>38</td></tr>
+            <tr><td>25 cm</td><td>7</td><td>8.5</td><td class="eu-col">40</td><td>39</td></tr>
+            <tr><td>25.5 cm</td><td>7.5</td><td>9</td><td class="eu-col">40.5</td><td>40</td></tr>
+            <tr><td>26 cm</td><td>8</td><td>9.5</td><td class="eu-col">41</td><td>40.5</td></tr>
+            <tr><td>26.5 cm</td><td>8.5</td><td>10</td><td class="eu-col">42</td><td>41</td></tr>
+            <tr><td>27 cm</td><td>9</td><td>10.5</td><td class="eu-col">42.5</td><td>41.5</td></tr>
+            <tr><td>27.5 cm</td><td>9.5</td><td>11</td><td class="eu-col">43</td><td>42</td></tr>
+            <tr><td>28 cm</td><td>10</td><td>11.5</td><td class="eu-col">44</td><td>43</td></tr>
+            <tr><td>28.5 cm</td><td>10.5</td><td>12</td><td class="eu-col">44.5</td><td>43.5</td></tr>
+            <tr><td>29 cm</td><td>11</td><td>12.5</td><td class="eu-col">45</td><td>44</td></tr>
+            <tr><td>29.5 cm</td><td>11.5</td><td>13</td><td class="eu-col">45.5</td><td>44.5</td></tr>
+            <tr><td>30 cm</td><td>12</td><td>13.5</td><td class="eu-col">46</td><td>45</td></tr>
+            <tr><td>30.5 cm</td><td>12.5</td><td>14</td><td class="eu-col">47</td><td>46</td></tr>
+            <tr><td>31 cm</td><td>13</td><td>14.5</td><td class="eu-col">47.5</td><td>47</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tabla-nota">★ Talla EU es la referencia usada en el producto. PE = talla peruana.</p>
+    </div>
+
+    <!-- Nike Mujer -->
+    <div class="panel-genero" id="nike-mujer">
+      <div class="tabla-wrap">
+        <table class="talla-table">
+          <thead><tr>
+            <th>Medida</th><th>US M</th><th class="eu-col">EU ★</th><th>PE</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>22 cm</td><td>5</td><td class="eu-col">35</td><td>35</td></tr>
+            <tr><td>22.5 cm</td><td>5.5</td><td class="eu-col">35.5</td><td>35.5</td></tr>
+            <tr><td>23 cm</td><td>6</td><td class="eu-col">36</td><td>36</td></tr>
+            <tr><td>23.5 cm</td><td>6.5</td><td class="eu-col">36.5</td><td>36.5</td></tr>
+            <tr><td>24 cm</td><td>7</td><td class="eu-col">37</td><td>37</td></tr>
+            <tr><td>24.5 cm</td><td>7.5</td><td class="eu-col">37.5</td><td>37.5</td></tr>
+            <tr><td>25 cm</td><td>8</td><td class="eu-col">38</td><td>38</td></tr>
+            <tr><td>25.5 cm</td><td>8.5</td><td class="eu-col">38.5</td><td>38.5</td></tr>
+            <tr><td>26 cm</td><td>9</td><td class="eu-col">39</td><td>39</td></tr>
+            <tr><td>26.5 cm</td><td>9.5</td><td class="eu-col">39.5</td><td>39.5</td></tr>
+            <tr><td>27 cm</td><td>10</td><td class="eu-col">40</td><td>40</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tabla-nota">★ Talla EU es la referencia usada en el producto.</p>
+    </div>
+
+    <!-- Nike Niños -->
+    <div class="panel-genero" id="nike-ninos">
+      <div class="subtitulo-seccion">Bebé e infantil (0–4 años)</div>
+      <div class="tabla-wrap">
+        <table class="talla-table">
+          <thead><tr><th>Largo</th><th>US</th><th class="eu-col">EU ★</th><th>PE</th></tr></thead>
+          <tbody>
+            <tr><td>11 cm</td><td>5C</td><td class="eu-col">21</td><td>17</td></tr>
+            <tr><td>12 cm</td><td>6C</td><td class="eu-col">22</td><td>18</td></tr>
+            <tr><td>13 cm</td><td>7C</td><td class="eu-col">23.5</td><td>19</td></tr>
+            <tr><td>14 cm</td><td>8C</td><td class="eu-col">25</td><td>20</td></tr>
+            <tr><td>15 cm</td><td>9C</td><td class="eu-col">26</td><td>21</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="subtitulo-seccion">Niños grandes (8–16 años)</div>
+      <div class="tabla-wrap">
+        <table class="talla-table">
+          <thead><tr><th>Largo</th><th>US</th><th class="eu-col">EU ★</th><th>PE</th></tr></thead>
+          <tbody>
+            <tr><td>20 cm</td><td>1Y</td><td class="eu-col">32</td><td>28</td></tr>
+            <tr><td>21 cm</td><td>2Y</td><td class="eu-col">33.5</td><td>29</td></tr>
+            <tr><td>22 cm</td><td>3Y</td><td class="eu-col">35</td><td>30</td></tr>
+            <tr><td>22.5 cm</td><td>3.5Y</td><td class="eu-col">35.5</td><td>31</td></tr>
+            <tr><td>23 cm</td><td>4Y</td><td class="eu-col">36</td><td>32</td></tr>
+            <tr><td>23.5 cm</td><td>4.5Y</td><td class="eu-col">36.5</td><td>33</td></tr>
+            <tr><td>24 cm</td><td>5Y</td><td class="eu-col">37.5</td><td>34</td></tr>
+            <tr><td>24 cm</td><td>5.5Y</td><td class="eu-col">38</td><td>35</td></tr>
+            <tr><td>24 cm</td><td>6Y</td><td class="eu-col">38.5</td><td>36</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ ADIDAS ═══════════════ -->
+  <div class="panel-marca" id="panel-adidas">
+    <div class="tabs-genero">
+      <button class="tab-genero active" onclick="cambiarGenero('adidas','hombre',this)">Hombre / Unisex</button>
+      <button class="tab-genero" onclick="cambiarGenero('adidas','mujer',this)">Mujer</button>
+      <button class="tab-genero" onclick="cambiarGenero('adidas','ninos',this)">Niños</button>
+    </div>
+
+    <!-- Adidas Hombre -->
+    <div class="panel-genero active" id="adidas-hombre">
+      <div class="tabla-wrap">
+        <table class="talla-table">
+          <thead><tr><th>Punta-talón</th><th>US H</th><th>US M</th><th class="eu-col">EU ★</th><th>UK</th></tr></thead>
+          <tbody>
+            <tr><td>22.9 cm</td><td>5</td><td>6</td><td class="eu-col">37⅓</td><td>4.5</td></tr>
+            <tr><td>23.3 cm</td><td>5.5</td><td>6.5</td><td class="eu-col">38</td><td>5</td></tr>
+            <tr><td>23.8 cm</td><td>6</td><td>7</td><td class="eu-col">38⅔</td><td>5.5</td></tr>
+            <tr><td>24.2 cm</td><td>6.5</td><td>7.5</td><td class="eu-col">39⅓</td><td>6</td></tr>
+            <tr><td>24.6 cm</td><td>7</td><td>8</td><td class="eu-col">40</td><td>6.5</td></tr>
+            <tr><td>25 cm</td><td>7.5</td><td>8.5</td><td class="eu-col">40⅔</td><td>7</td></tr>
+            <tr><td>25.5 cm</td><td>8</td><td>9</td><td class="eu-col">41⅓</td><td>7.5</td></tr>
+            <tr><td>25.9 cm</td><td>8.5</td><td>9.5</td><td class="eu-col">42</td><td>8</td></tr>
+            <tr><td>26.3 cm</td><td>9</td><td>10</td><td class="eu-col">42⅔</td><td>8.5</td></tr>
+            <tr><td>26.7 cm</td><td>9.5</td><td>10.5</td><td class="eu-col">43⅓</td><td>9</td></tr>
+            <tr><td>27.1 cm</td><td>10</td><td>11</td><td class="eu-col">44</td><td>9.5</td></tr>
+            <tr><td>27.6 cm</td><td>10.5</td><td>11.5</td><td class="eu-col">44⅔</td><td>10</td></tr>
+            <tr><td>28 cm</td><td>11</td><td>12</td><td class="eu-col">45⅓</td><td>10.5</td></tr>
+            <tr><td>28.4 cm</td><td>11.5</td><td>12.5</td><td class="eu-col">46</td><td>11</td></tr>
+            <tr><td>28.8 cm</td><td>12</td><td>13</td><td class="eu-col">46⅔</td><td>11.5</td></tr>
+            <tr><td>29.3 cm</td><td>12.5</td><td>13.5</td><td class="eu-col">47⅓</td><td>12</td></tr>
+            <tr><td>29.7 cm</td><td>13</td><td>14</td><td class="eu-col">48</td><td>12.5</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tabla-nota">El calzado Unisex Adidas usa tallas de hombre. Si usas tallas de mujer, pide una talla menos.</p>
+    </div>
+
+    <!-- Adidas Mujer -->
+    <div class="panel-genero" id="adidas-mujer">
+      <div class="tabla-wrap">
+        <table class="talla-table">
+          <thead><tr><th>Punta-talón</th><th>US M</th><th class="eu-col">EU ★</th><th>UK</th></tr></thead>
+          <tbody>
+            <tr><td>22.1 cm</td><td>5</td><td class="eu-col">36</td><td>3.5</td></tr>
+            <tr><td>22.5 cm</td><td>5.5</td><td class="eu-col">36⅔</td><td>4</td></tr>
+            <tr><td>22.9 cm</td><td>6</td><td class="eu-col">37⅓</td><td>4.5</td></tr>
+            <tr><td>23.3 cm</td><td>6.5</td><td class="eu-col">38</td><td>5</td></tr>
+            <tr><td>23.8 cm</td><td>7</td><td class="eu-col">38⅔</td><td>5.5</td></tr>
+            <tr><td>24.2 cm</td><td>7.5</td><td class="eu-col">39⅓</td><td>6</td></tr>
+            <tr><td>24.6 cm</td><td>8</td><td class="eu-col">40</td><td>6.5</td></tr>
+            <tr><td>25 cm</td><td>8.5</td><td class="eu-col">40⅔</td><td>7</td></tr>
+            <tr><td>25.5 cm</td><td>9</td><td class="eu-col">41⅓</td><td>7.5</td></tr>
+            <tr><td>25.9 cm</td><td>9.5</td><td class="eu-col">42</td><td>8</td></tr>
+            <tr><td>26.3 cm</td><td>10</td><td class="eu-col">42⅔</td><td>8.5</td></tr>
+            <tr><td>26.7 cm</td><td>10.5</td><td class="eu-col">43⅓</td><td>9</td></tr>
+            <tr><td>27.1 cm</td><td>11</td><td class="eu-col">44</td><td>9.5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Adidas Niños -->
+    <div class="panel-genero" id="adidas-ninos">
+      <div class="subtitulo-seccion">Jóvenes / Adolescentes (8–16 años)</div>
+      <div class="tabla-wrap">
+        <table class="talla-table">
+          <thead><tr><th>Punta-talón</th><th>US</th><th class="eu-col">EU ★</th><th>UK</th></tr></thead>
+          <tbody>
+            <tr><td>21.6 cm</td><td>3</td><td class="eu-col">35.5</td><td>3</td></tr>
+            <tr><td>22.1 cm</td><td>3.5</td><td class="eu-col">36</td><td>3.5</td></tr>
+            <tr><td>22.5 cm</td><td>4</td><td class="eu-col">36⅔</td><td>4</td></tr>
+            <tr><td>22.9 cm</td><td>4.5</td><td class="eu-col">37⅓</td><td>4.5</td></tr>
+            <tr><td>23.3 cm</td><td>5</td><td class="eu-col">38</td><td>5</td></tr>
+            <tr><td>23.8 cm</td><td>5.5</td><td class="eu-col">38⅔</td><td>5.5</td></tr>
+            <tr><td>24.2 cm</td><td>6</td><td class="eu-col">39⅓</td><td>6</td></tr>
+            <tr><td>24.6 cm</td><td>6.5</td><td class="eu-col">40</td><td>6.5</td></tr>
+            <tr><td>25 cm</td><td>7</td><td class="eu-col">40⅔</td><td>7</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ PUMA ═══════════════ -->
+  <div class="panel-marca" id="panel-puma">
+    <div class="tabs-genero">
+      <button class="tab-genero active" onclick="cambiarGenero('puma','hombre',this)">Hombre / Unisex</button>
+      <button class="tab-genero" onclick="cambiarGenero('puma','mujer',this)">Mujer</button>
+    </div>
+
+    <!-- Puma Hombre/Unisex -->
+    <div class="panel-genero active" id="puma-hombre">
+      <div class="tabla-wrap">
+        <table class="talla-table">
+          <thead><tr><th>Largo (cm)</th><th>US</th><th class="eu-col">EU ★</th></tr></thead>
+          <tbody>
+            <tr><td>22 cm</td><td>4</td><td class="eu-col">36</td></tr>
+            <tr><td>22.5 cm</td><td>4.5</td><td class="eu-col">36.5</td></tr>
+            <tr><td>23 cm</td><td>5</td><td class="eu-col">37</td></tr>
+            <tr><td>23.5 cm</td><td>5.5</td><td class="eu-col">37.5</td></tr>
+            <tr><td>24 cm</td><td>6</td><td class="eu-col">38</td></tr>
+            <tr><td>24.5 cm</td><td>6.5</td><td class="eu-col">38.5</td></tr>
+            <tr><td>25 cm</td><td>7</td><td class="eu-col">39</td></tr>
+            <tr><td>25.5 cm</td><td>7.5</td><td class="eu-col">40</td></tr>
+            <tr><td>26 cm</td><td>8</td><td class="eu-col">40.5</td></tr>
+            <tr><td>26.5 cm</td><td>8.5</td><td class="eu-col">41</td></tr>
+            <tr><td>27 cm</td><td>9</td><td class="eu-col">42</td></tr>
+            <tr><td>27.5 cm</td><td>9.5</td><td class="eu-col">42.5</td></tr>
+            <tr><td>28 cm</td><td>10</td><td class="eu-col">43</td></tr>
+            <tr><td>28.5 cm</td><td>10.5</td><td class="eu-col">44</td></tr>
+            <tr><td>29 cm</td><td>11</td><td class="eu-col">44.5</td></tr>
+            <tr><td>29.5 cm</td><td>11.5</td><td class="eu-col">45</td></tr>
+            <tr><td>30 cm</td><td>12</td><td class="eu-col">46</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tabla-nota">Calzado Unisex Puma: usa la tabla de hombre. Para mujer, elige una talla menos que tu talla habitual.</p>
+    </div>
+
+    <!-- Puma Mujer -->
+    <div class="panel-genero" id="puma-mujer">
+      <div class="tabla-wrap">
+        <table class="talla-table">
+          <thead><tr><th>Largo (cm)</th><th>US</th><th class="eu-col">EU ★</th></tr></thead>
+          <tbody>
+            <tr><td>22 cm</td><td>5</td><td class="eu-col">36</td></tr>
+            <tr><td>22.5 cm</td><td>5.5</td><td class="eu-col">36.5</td></tr>
+            <tr><td>23 cm</td><td>6</td><td class="eu-col">37</td></tr>
+            <tr><td>23.5 cm</td><td>6.5</td><td class="eu-col">37.5</td></tr>
+            <tr><td>24 cm</td><td>7</td><td class="eu-col">38</td></tr>
+            <tr><td>24.5 cm</td><td>7.5</td><td class="eu-col">38.5</td></tr>
+            <tr><td>25 cm</td><td>8</td><td class="eu-col">39</td></tr>
+            <tr><td>25.5 cm</td><td>8.5</td><td class="eu-col">39.5</td></tr>
+            <tr><td>26 cm</td><td>9</td><td class="eu-col">40</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ CAT ═══════════════ -->
+  <div class="panel-marca" id="panel-cat">
+    <div class="tabs-genero">
+      <button class="tab-genero active" onclick="cambiarGenero('cat','hombre',this)">Hombre</button>
+      <button class="tab-genero" onclick="cambiarGenero('cat','mujer',this)">Mujer</button>
+    </div>
+
+    <!-- CAT Hombre -->
+    <div class="panel-genero active" id="cat-hombre">
+      <div class="tabla-wrap">
+        <table class="talla-table">
+          <thead><tr><th>Largo (cm)</th><th>US</th><th class="eu-col">EU ★</th><th>UK</th></tr></thead>
+          <tbody>
+            <tr><td>25 cm</td><td>7</td><td class="eu-col">40</td><td>6</td></tr>
+            <tr><td>25.5 cm</td><td>7.5</td><td class="eu-col">40.5</td><td>6.5</td></tr>
+            <tr><td>26 cm</td><td>8</td><td class="eu-col">41</td><td>7</td></tr>
+            <tr><td>26.5 cm</td><td>8.5</td><td class="eu-col">41.5</td><td>7.5</td></tr>
+            <tr><td>27 cm</td><td>9</td><td class="eu-col">42</td><td>8</td></tr>
+            <tr><td>27.5 cm</td><td>9.5</td><td class="eu-col">42.5</td><td>8.5</td></tr>
+            <tr><td>28 cm</td><td>10</td><td class="eu-col">43</td><td>9</td></tr>
+            <tr><td>28.5 cm</td><td>10.5</td><td class="eu-col">43.5</td><td>9.5</td></tr>
+            <tr><td>29 cm</td><td>11</td><td class="eu-col">44</td><td>10</td></tr>
+            <tr><td>29.5 cm</td><td>11.5</td><td class="eu-col">44.5</td><td>10.5</td></tr>
+            <tr><td>30 cm</td><td>12</td><td class="eu-col">45</td><td>11</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CAT Mujer -->
+    <div class="panel-genero" id="cat-mujer">
+      <div class="tabla-wrap">
+        <table class="talla-table">
+          <thead><tr><th>Largo (cm)</th><th>US</th><th class="eu-col">EU ★</th></tr></thead>
+          <tbody>
+            <tr><td>22 cm</td><td>5</td><td class="eu-col">36</td></tr>
+            <tr><td>22.5 cm</td><td>5.5</td><td class="eu-col">36.5</td></tr>
+            <tr><td>23 cm</td><td>6</td><td class="eu-col">37</td></tr>
+            <tr><td>23.5 cm</td><td>6.5</td><td class="eu-col">37.5</td></tr>
+            <tr><td>24 cm</td><td>7</td><td class="eu-col">38</td></tr>
+            <tr><td>24.5 cm</td><td>7.5</td><td class="eu-col">38.5</td></tr>
+            <tr><td>25 cm</td><td>8</td><td class="eu-col">39</td></tr>
+            <tr><td>25.5 cm</td><td>8.5</td><td class="eu-col">39.5</td></tr>
+            <tr><td>26 cm</td><td>9</td><td class="eu-col">40</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- WA BANNER -->
+  <div class="banner-wa" style="margin-top:48px">
+    <div>
+      <h3>¿Sigues con dudas sobre tu talla?</h3>
+      <p>Escríbenos y te ayudamos a elegir la talla perfecta</p>
+    </div>
+    <a href="https://wa.me/51961836500?text=Hola%20Vitop!%20Necesito%20ayuda%20con%20mi%20talla%20🛍️"
+       class="btn-wa-banner" target="_blank">💬 Consultar por WhatsApp</a>
+  </div>
+
+</div><!-- /guia-wrap -->
+
+<footer>
+  <div class="footer-logo">VITOP<span>.</span></div>
+  <p>© 2025 Vitop Store · Hecho con ❤️ en Perú</p>
+  <a href="https://wa.me/51961836500" class="footer-wa" target="_blank">💬 WhatsApp</a>
+</footer>
+
+<a href="https://wa.me/51961836500?text=Hola%20Vitop%20Store!%20🛍️"
+   class="wa-float" target="_blank">💬</a>
+
+<script>
+function cambiarMarca(marca, btn) {
+  document.querySelectorAll('.tab-marca').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel-marca').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + marca).classList.add('active');
+}
+
+function cambiarGenero(marca, genero, btn) {
+  const panel = document.getElementById('panel-' + marca);
+  panel.querySelectorAll('.tab-genero').forEach(t => t.classList.remove('active'));
+  panel.querySelectorAll('.panel-genero').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(marca + '-' + genero).classList.add('active');
+}
+</script>
+</body>
+</html>
