@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía de Tallas — VITOP STORE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Montserrat', sans-serif; background: #fff; color: #111; }
+
+    /* NAV */
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 5%; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .nav-logo { font-size: 1.3rem; font-weight: 700; letter-spacing: 3px; }
+    .nav-logo span { color: #bfa96a; }
+    .nav-back { font-size: 0.72rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; color: #111; display: flex; align-items: center; gap: 6px; }
+    .nav-back:hover { text-decoration: underline; }
+
+    /* HERO */
+    .hero { background: #111; color: #fff; padding: 60px 5% 50px; }
+    .hero h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 10px; }
+    .hero p { font-size: 0.85rem; color: #aaa; max-width: 500px; line-height: 1.7; }
+
+    /* HOW TO MEASURE */
+    .measure { padding: 40px 5%; border-bottom: 1px solid #eee; background: #fafafa; }
+    .measure h2 { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; color: #555; }
+    .steps { display: flex; gap: 24px; flex-wrap: wrap; }
+    .step { flex: 1; min-width: 200px; display: flex; gap: 12px; align-items: flex-start; }
+    .step-num { width: 28px; height: 28px; background: #111; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; }
+    .step p { font-size: 0.78rem; color: #444; line-height: 1.6; }
+
+    /* MARCA TABS */
+    .tabs-wrap { padding: 0 5%; border-bottom: 2px solid #eee; display: flex; gap: 0; overflow-x: auto; }
+    .tab-btn { padding: 18px 24px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; border: none; background: none; cursor: pointer; color: #888; border-bottom: 3px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: color .2s, border-color .2s; }
+    .tab-btn:hover { color: #111; }
+    .tab-btn.active { color: #111; border-bottom-color: #111; }
+
+    /* CONTENIDO */
+    .content { padding: 40px 5%; max-width: 900px; }
+    .marca-section { display: none; }
+    .marca-section.active { display: block; }
+
+    /* SUBTABS género */
+    .subtabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+    .subtab-btn { padding: 8px 18px; font-size: 0.68rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border: 1.5px solid #ccc; background: none; cursor: pointer; color: #666; transition: all .15s; }
+    .subtab-btn:hover { border-color: #111; color: #111; }
+    .subtab-btn.active { background: #111; color: #fff; border-color: #111; }
+
+    .genero-section { display: none; }
+    .genero-section.active { display: block; }
+
+    /* TABLA */
+    .tabla-wrap { overflow-x: auto; margin-bottom: 32px; }
+    .tabla-titulo { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 12px; }
+    table { width: 100%; border-collapse: collapse; min-width: 360px; }
+    thead tr { background: #111; }
+    thead th { padding: 12px 16px; font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; text-align: left; }
+    thead th.highlight { background: #bfa96a; }
+    tbody tr { border-bottom: 1px solid #f0f0f0; }
+    tbody tr:hover { background: #f8f8f8; }
+    tbody td { padding: 11px 16px; font-size: 0.78rem; color: #333; }
+    tbody td.highlight { font-weight: 700; color: #111; }
+
+    /* NOTA */
+    .nota { background: #f5f5f5; padding: 16px 20px; font-size: 0.74rem; color: #555; line-height: 1.7; margin-bottom: 24px; border-left: 3px solid #bfa96a; }
+
+    /* WA BANNER */
+    .wa-banner { background: #111; color: #fff; padding: 40px 5%; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 60px; }
+    .wa-banner h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 6px; }
+    .wa-banner p { font-size: 0.78rem; color: #aaa; }
+    .wa-btn { background: #25d366; color: #fff; padding: 14px 28px; text-decoration: none; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+    .wa-btn:hover { opacity: .88; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">VITOP<span>.</span></div>
+  <a href="../index.html" class="nav-back">← Volver a la tienda</a>
+</nav>
+
+<div class="hero">
+  <h1>Guía de Tallas</h1>
+  <p>Encuentra tu talla perfecta con las tablas oficiales de cada marca. La columna <strong>EU</strong> es la que usamos en nuestra tienda.</p>
+</div>
+
+<div class="measure">
+  <h2>¿Cómo medir tu pie?</h2>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><p>Coloca tu pie sobre una hoja de papel con el talón contra la pared.</p></div>
+    <div class="step"><div class="step-num">2</div><p>Marca con un lápiz desde el talón hasta tu dedo más largo.</p></div>
+    <div class="step"><div class="step-num">3</div><p>Mide la distancia en centímetros y compara con la tabla de tu marca.</p></div>
+  </div>
+</div>
+
+<!-- MARCA TABS -->
+<div class="tabs-wrap">
+  <button class="tab-btn active" onclick="mostrarMarca('nike', this)">Nike</button>
+  <button class="tab-btn" onclick="mostrarMarca('adidas', this)">Adidas</button>
+  <button class="tab-btn" onclick="mostrarMarca('puma', this)">Puma</button>
+  <button class="tab-btn" onclick="mostrarMarca('cat', this)">CAT</button>
+  <button class="tab-btn" onclick="mostrarMarca('columbia', this)">Columbia</button>
+  <button class="tab-btn" onclick="mostrarMarca('reebok', this)">Reebok</button>
+</div>
+
+<div class="content">
+
+  <!-- ══ NIKE ══ -->
+  <div class="marca-section active" id="marca-nike">
+    <div class="subtabs">
+      <button class="subtab-btn active" onclick="mostrarGenero('nike','hombre',this)">Hombre</button>
+      <button class="subtab-btn" onclick="mostrarGenero('nike','mujer',this)">Mujer</button>
+    </div>
+    <div class="genero-section active" id="nike-hombre">
+      <p class="tabla-titulo">Calzado Hombre — Talla EU resaltada</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Largo pie (cm)</th><th class="highlight">EU</th><th>US Hombre</th><th>PE</th></tr></thead>
+        <tbody>
+          <tr><td>24</td><td class="highlight">38</td><td>5.5</td><td>37</td></tr>
+          <tr><td>24.5</td><td class="highlight">39</td><td>6</td><td>37.5</td></tr>
+          <tr><td>25</td><td class="highlight">40</td><td>6.5</td><td>38</td></tr>
+          <tr><td>25.5</td><td class="highlight">40.5</td><td>7</td><td>39</td></tr>
+          <tr><td>26</td><td class="highlight">41</td><td>7.5</td><td>40</td></tr>
+          <tr><td>26.5</td><td class="highlight">42</td><td>8</td><td>40.5</td></tr>
+          <tr><td>27</td><td class="highlight">42.5</td><td>8.5</td><td>41</td></tr>
+          <tr><td>27.5</td><td class="highlight">43</td><td>9</td><td>41.5</td></tr>
+          <tr><td>28</td><td class="highlight">44</td><td>9.5</td><td>42</td></tr>
+          <tr><td>28.5</td><td class="highlight">44.5</td><td>10</td><td>43</td></tr>
+          <tr><td>29</td><td class="highlight">45</td><td>10.5</td><td>43.5</td></tr>
+          <tr><td>29.5</td><td class="highlight">45.5</td><td>11</td><td>44</td></tr>
+          <tr><td>30</td><td class="highlight">46</td><td>11.5</td><td>44.5</td></tr>
+          <tr><td>30.5</td><td class="highlight">47</td><td>12</td><td>45</td></tr>
+          <tr><td>31</td><td class="highlight">47.5</td><td>12.5</td><td>46</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="genero-section" id="nike-mujer">
+      <p class="tabla-titulo">Calzado Mujer</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Largo pie (cm)</th><th class="highlight">EU</th><th>US Mujer</th><th>PE</th></tr></thead>
+        <tbody>
+          <tr><td>22.5</td><td class="highlight">36</td><td>5.5</td><td>35.5</td></tr>
+          <tr><td>23</td><td class="highlight">36.5</td><td>6</td><td>36</td></tr>
+          <tr><td>23.5</td><td class="highlight">37</td><td>6.5</td><td>36.5</td></tr>
+          <tr><td>24</td><td class="highlight">37.5</td><td>7</td><td>37</td></tr>
+          <tr><td>24.5</td><td class="highlight">38</td><td>7.5</td><td>37.5</td></tr>
+          <tr><td>25</td><td class="highlight">38.5</td><td>8</td><td>38</td></tr>
+          <tr><td>25.5</td><td class="highlight">39</td><td>8.5</td><td>38.5</td></tr>
+          <tr><td>26</td><td class="highlight">39.5</td><td>9</td><td>39</td></tr>
+          <tr><td>26.5</td><td class="highlight">40</td><td>9.5</td><td>39.5</td></tr>
+          <tr><td>27</td><td class="highlight">40.5</td><td>10</td><td>40</td></tr>
+          <tr><td>27.5</td><td class="highlight">41</td><td>10.5</td><td>40.5</td></tr>
+          <tr><td>28</td><td class="highlight">42</td><td>11</td><td>41</td></tr>
+          <tr><td>28.5</td><td class="highlight">43</td><td>11.5</td><td>42</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- ══ ADIDAS ══ -->
+  <div class="marca-section" id="marca-adidas">
+    <p class="nota">Adidas usa talla FR (Francesa) como EU. El calzado Unisex sigue la talla de hombre — si usas talla de mujer, pide media talla menos.</p>
+    <div class="subtabs">
+      <button class="subtab-btn active" onclick="mostrarGenero('adidas','hombre',this)">Hombre</button>
+      <button class="subtab-btn" onclick="mostrarGenero('adidas','mujer',this)">Mujer</button>
+    </div>
+    <div class="genero-section active" id="adidas-hombre">
+      <p class="tabla-titulo">Calzado Hombre</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Largo pie (cm)</th><th class="highlight">EU (FR)</th><th>US Hombre</th><th>US Mujer</th></tr></thead>
+        <tbody>
+          <tr><td>22.1</td><td class="highlight">36</td><td>4</td><td>5</td></tr>
+          <tr><td>22.5</td><td class="highlight">36 2/3</td><td>4.5</td><td>5.5</td></tr>
+          <tr><td>22.9</td><td class="highlight">37 1/3</td><td>5</td><td>6</td></tr>
+          <tr><td>23.3</td><td class="highlight">38</td><td>5.5</td><td>6.5</td></tr>
+          <tr><td>23.8</td><td class="highlight">38 2/3</td><td>6</td><td>7</td></tr>
+          <tr><td>24.2</td><td class="highlight">39 1/3</td><td>6.5</td><td>7.5</td></tr>
+          <tr><td>24.6</td><td class="highlight">40</td><td>7</td><td>8</td></tr>
+          <tr><td>25.0</td><td class="highlight">40 2/3</td><td>7.5</td><td>8.5</td></tr>
+          <tr><td>25.5</td><td class="highlight">41 1/3</td><td>8</td><td>9</td></tr>
+          <tr><td>25.9</td><td class="highlight">42</td><td>8.5</td><td>9.5</td></tr>
+          <tr><td>26.3</td><td class="highlight">42 2/3</td><td>9</td><td>10</td></tr>
+          <tr><td>26.7</td><td class="highlight">43 1/3</td><td>9.5</td><td>10.5</td></tr>
+          <tr><td>27.1</td><td class="highlight">44</td><td>10</td><td>11</td></tr>
+          <tr><td>27.6</td><td class="highlight">44 2/3</td><td>10.5</td><td>11.5</td></tr>
+          <tr><td>28.0</td><td class="highlight">45 1/3</td><td>11</td><td>12</td></tr>
+          <tr><td>28.4</td><td class="highlight">46</td><td>11.5</td><td>12.5</td></tr>
+          <tr><td>28.8</td><td class="highlight">46 2/3</td><td>12</td><td>13</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="genero-section" id="adidas-mujer">
+      <p class="tabla-titulo">Calzado Mujer</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Largo pie (cm)</th><th class="highlight">EU (FR)</th><th>US Mujer</th><th>US Hombre</th></tr></thead>
+        <tbody>
+          <tr><td>22.1</td><td class="highlight">36</td><td>5</td><td>4</td></tr>
+          <tr><td>22.5</td><td class="highlight">36 2/3</td><td>5.5</td><td>4.5</td></tr>
+          <tr><td>22.9</td><td class="highlight">37 1/3</td><td>6</td><td>5</td></tr>
+          <tr><td>23.3</td><td class="highlight">38</td><td>6.5</td><td>5.5</td></tr>
+          <tr><td>23.8</td><td class="highlight">38 2/3</td><td>7</td><td>6</td></tr>
+          <tr><td>24.2</td><td class="highlight">39 1/3</td><td>7.5</td><td>6.5</td></tr>
+          <tr><td>24.6</td><td class="highlight">40</td><td>8</td><td>7</td></tr>
+          <tr><td>25.0</td><td class="highlight">40 2/3</td><td>8.5</td><td>7.5</td></tr>
+          <tr><td>25.5</td><td class="highlight">41 1/3</td><td>9</td><td>8</td></tr>
+          <tr><td>25.9</td><td class="highlight">42</td><td>9.5</td><td>8.5</td></tr>
+          <tr><td>26.3</td><td class="highlight">42 2/3</td><td>10</td><td>9</td></tr>
+          <tr><td>26.7</td><td class="highlight">43 1/3</td><td>10.5</td><td>9.5</td></tr>
+          <tr><td>27.1</td><td class="highlight">44</td><td>11</td><td>10</td></tr>
+          <tr><td>27.6</td><td class="highlight">44 2/3</td><td>11.5</td><td>10.5</td></tr>
+          <tr><td>28.0</td><td class="highlight">45 1/3</td><td>12</td><td>11</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- ══ PUMA ══ -->
+  <div class="marca-section" id="marca-puma">
+    <div class="subtabs">
+      <button class="subtab-btn active" onclick="mostrarGenero('puma','hombre',this)">Hombre</button>
+      <button class="subtab-btn" onclick="mostrarGenero('puma','mujer',this)">Mujer</button>
+    </div>
+    <div class="genero-section active" id="puma-hombre">
+      <p class="tabla-titulo">Calzado Hombre</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Largo pie (cm)</th><th class="highlight">EU</th><th>US</th></tr></thead>
+        <tbody>
+          <tr><td>22</td><td class="highlight">36</td><td>4</td></tr>
+          <tr><td>22.5</td><td class="highlight">36.5</td><td>4.5</td></tr>
+          <tr><td>23</td><td class="highlight">37</td><td>5</td></tr>
+          <tr><td>23.5</td><td class="highlight">37.5</td><td>5.5</td></tr>
+          <tr><td>24</td><td class="highlight">38</td><td>6</td></tr>
+          <tr><td>24.5</td><td class="highlight">38.5</td><td>6.5</td></tr>
+          <tr><td>25</td><td class="highlight">39</td><td>7</td></tr>
+          <tr><td>25.5</td><td class="highlight">40</td><td>7.5</td></tr>
+          <tr><td>26</td><td class="highlight">40.5</td><td>8</td></tr>
+          <tr><td>26.5</td><td class="highlight">41</td><td>8.5</td></tr>
+          <tr><td>27</td><td class="highlight">42</td><td>9</td></tr>
+          <tr><td>27.5</td><td class="highlight">42.5</td><td>9.5</td></tr>
+          <tr><td>28</td><td class="highlight">43</td><td>10</td></tr>
+          <tr><td>28.5</td><td class="highlight">44</td><td>10.5</td></tr>
+          <tr><td>29</td><td class="highlight">44.5</td><td>11</td></tr>
+          <tr><td>29.5</td><td class="highlight">45</td><td>11.5</td></tr>
+          <tr><td>30</td><td class="highlight">46</td><td>12</td></tr>
+          <tr><td>30.5</td><td class="highlight">46.5</td><td>12.5</td></tr>
+          <tr><td>31</td><td class="highlight">47</td><td>13</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="genero-section" id="puma-mujer">
+      <p class="tabla-titulo">Calzado Mujer</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Largo pie (cm)</th><th class="highlight">EU</th><th>US</th></tr></thead>
+        <tbody>
+          <tr><td>20.5</td><td class="highlight">34</td><td>4</td></tr>
+          <tr><td>21</td><td class="highlight">34.5</td><td>4.5</td></tr>
+          <tr><td>21.5</td><td class="highlight">35</td><td>5</td></tr>
+          <tr><td>22</td><td class="highlight">35.5</td><td>5.5</td></tr>
+          <tr><td>22.5</td><td class="highlight">36</td><td>6</td></tr>
+          <tr><td>23</td><td class="highlight">37</td><td>6.5</td></tr>
+          <tr><td>23.5</td><td class="highlight">37.5</td><td>7</td></tr>
+          <tr><td>24</td><td class="highlight">38</td><td>7.5</td></tr>
+          <tr><td>24.5</td><td class="highlight">38.5</td><td>8</td></tr>
+          <tr><td>25</td><td class="highlight">39</td><td>8.5</td></tr>
+          <tr><td>25.5</td><td class="highlight">40</td><td>9</td></tr>
+          <tr><td>26</td><td class="highlight">40.5</td><td>9.5</td></tr>
+          <tr><td>26.5</td><td class="highlight">41</td><td>10</td></tr>
+          <tr><td>27</td><td class="highlight">42</td><td>10.5</td></tr>
+          <tr><td>27.5</td><td class="highlight">42.5</td><td>11</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- ══ CAT ══ -->
+  <div class="marca-section" id="marca-cat">
+    <div class="subtabs">
+      <button class="subtab-btn active" onclick="mostrarGenero('cat','hombre',this)">Hombre</button>
+      <button class="subtab-btn" onclick="mostrarGenero('cat','mujer',this)">Mujer</button>
+    </div>
+    <div class="genero-section active" id="cat-hombre">
+      <p class="tabla-titulo">Calzado Hombre — CAT Caterpillar</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Largo pie (cm)</th><th class="highlight">EU</th><th>USA</th></tr></thead>
+        <tbody>
+          <tr><td>24.5</td><td class="highlight">39.5</td><td>6.5</td></tr>
+          <tr><td>25</td><td class="highlight">40</td><td>7</td></tr>
+          <tr><td>25.5</td><td class="highlight">40.5</td><td>7.5</td></tr>
+          <tr><td>26</td><td class="highlight">41</td><td>8</td></tr>
+          <tr><td>26.5</td><td class="highlight">41.5</td><td>8.5</td></tr>
+          <tr><td>27</td><td class="highlight">42</td><td>9</td></tr>
+          <tr><td>27.5</td><td class="highlight">42.5</td><td>9.5</td></tr>
+          <tr><td>28</td><td class="highlight">43</td><td>10</td></tr>
+          <tr><td>28.5</td><td class="highlight">43.5</td><td>10.5</td></tr>
+          <tr><td>29</td><td class="highlight">44</td><td>11</td></tr>
+          <tr><td>29.5</td><td class="highlight">44.5</td><td>11.5</td></tr>
+          <tr><td>30</td><td class="highlight">45</td><td>12</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="genero-section" id="cat-mujer">
+      <p class="tabla-titulo">Calzado Mujer — CAT Caterpillar</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Largo pie (cm)</th><th class="highlight">EU</th><th>USA</th></tr></thead>
+        <tbody>
+          <tr><td>22</td><td class="highlight">36</td><td>5</td></tr>
+          <tr><td>22.5</td><td class="highlight">36.5</td><td>5.5</td></tr>
+          <tr><td>23</td><td class="highlight">37</td><td>6</td></tr>
+          <tr><td>23.5</td><td class="highlight">37.5</td><td>6.5</td></tr>
+          <tr><td>24</td><td class="highlight">38</td><td>7</td></tr>
+          <tr><td>24.5</td><td class="highlight">38.5</td><td>7.5</td></tr>
+          <tr><td>25</td><td class="highlight">39</td><td>8</td></tr>
+          <tr><td>25.5</td><td class="highlight">39.5</td><td>8.5</td></tr>
+          <tr><td>26</td><td class="highlight">40</td><td>9</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- ══ COLUMBIA ══ -->
+  <div class="marca-section" id="marca-columbia">
+    <div class="subtabs">
+      <button class="subtab-btn active" onclick="mostrarGenero('columbia','hombre',this)">Hombre</button>
+      <button class="subtab-btn" onclick="mostrarGenero('columbia','mujer',this)">Mujer</button>
+    </div>
+    <div class="genero-section active" id="columbia-hombre">
+      <p class="tabla-titulo">Calzado Hombre — Columbia</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Largo Plantilla (cm)</th><th class="highlight">EU</th><th>Talla US</th></tr></thead>
+        <tbody>
+          <tr><td>25</td><td class="highlight">40</td><td>7</td></tr>
+          <tr><td>25.5</td><td class="highlight">40.5</td><td>7.5</td></tr>
+          <tr><td>26</td><td class="highlight">41</td><td>8</td></tr>
+          <tr><td>26.5</td><td class="highlight">41.5</td><td>8.5</td></tr>
+          <tr><td>27</td><td class="highlight">42</td><td>9</td></tr>
+          <tr><td>27.5</td><td class="highlight">42.5</td><td>9.5</td></tr>
+          <tr><td>28</td><td class="highlight">43</td><td>10</td></tr>
+          <tr><td>28.5</td><td class="highlight">43.5</td><td>10.5</td></tr>
+          <tr><td>29</td><td class="highlight">44</td><td>11</td></tr>
+          <tr><td>29.5</td><td class="highlight">44.5</td><td>11.5</td></tr>
+          <tr><td>30</td><td class="highlight">45</td><td>12</td></tr>
+          <tr><td>31</td><td class="highlight">46</td><td>13</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="genero-section" id="columbia-mujer">
+      <p class="tabla-titulo">Calzado Mujer — Columbia</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Largo Plantilla (cm)</th><th class="highlight">EU</th><th>Talla US</th></tr></thead>
+        <tbody>
+          <tr><td>22</td><td class="highlight">36</td><td>5</td></tr>
+          <tr><td>22.5</td><td class="highlight">36.5</td><td>5.5</td></tr>
+          <tr><td>23</td><td class="highlight">37</td><td>6</td></tr>
+          <tr><td>23.5</td><td class="highlight">37.5</td><td>6.5</td></tr>
+          <tr><td>24</td><td class="highlight">38</td><td>7</td></tr>
+          <tr><td>24.5</td><td class="highlight">38.5</td><td>7.5</td></tr>
+          <tr><td>25</td><td class="highlight">39</td><td>8</td></tr>
+          <tr><td>25.5</td><td class="highlight">39.5</td><td>8.5</td></tr>
+          <tr><td>26</td><td class="highlight">40</td><td>9</td></tr>
+          <tr><td>26.5</td><td class="highlight">40.5</td><td>9.5</td></tr>
+          <tr><td>27</td><td class="highlight">41</td><td>10</td></tr>
+          <tr><td>28</td><td class="highlight">42</td><td>11</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- ══ REEBOK ══ -->
+  <div class="marca-section" id="marca-reebok">
+    <div class="subtabs">
+      <button class="subtab-btn active" onclick="mostrarGenero('reebok','hombre',this)">Hombre</button>
+      <button class="subtab-btn" onclick="mostrarGenero('reebok','mujer',this)">Mujer</button>
+    </div>
+    <div class="genero-section active" id="reebok-hombre">
+      <p class="tabla-titulo">Calzado Hombre — Reebok</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Largo pie (cm)</th><th class="highlight">EU</th><th>US Hombre</th></tr></thead>
+        <tbody>
+          <tr><td>25</td><td class="highlight">39</td><td>7</td></tr>
+          <tr><td>25.5</td><td class="highlight">40</td><td>7.5</td></tr>
+          <tr><td>26</td><td class="highlight">40.5</td><td>8</td></tr>
+          <tr><td>26.5</td><td class="highlight">41</td><td>8.5</td></tr>
+          <tr><td>27</td><td class="highlight">42</td><td>9</td></tr>
+          <tr><td>27.5</td><td class="highlight">42.5</td><td>9.5</td></tr>
+          <tr><td>28</td><td class="highlight">43</td><td>10</td></tr>
+          <tr><td>28.5</td><td class="highlight">44</td><td>10.5</td></tr>
+          <tr><td>29</td><td class="highlight">44.5</td><td>11</td></tr>
+          <tr><td>29.5</td><td class="highlight">45</td><td>11.5</td></tr>
+          <tr><td>30</td><td class="highlight">45.5</td><td>12</td></tr>
+          <tr><td>30.5</td><td class="highlight">46</td><td>12.5</td></tr>
+          <tr><td>31</td><td class="highlight">47</td><td>13</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="genero-section" id="reebok-mujer">
+      <p class="tabla-titulo">Calzado Mujer — Reebok</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Largo pie (cm)</th><th class="highlight">EU</th><th>US Mujer</th></tr></thead>
+        <tbody>
+          <tr><td>22</td><td class="highlight">35</td><td>5</td></tr>
+          <tr><td>22.5</td><td class="highlight">35.5</td><td>5.5</td></tr>
+          <tr><td>23</td><td class="highlight">36</td><td>6</td></tr>
+          <tr><td>23.5</td><td class="highlight">37</td><td>6.5</td></tr>
+          <tr><td>24</td><td class="highlight">37.5</td><td>7</td></tr>
+          <tr><td>24.5</td><td class="highlight">38</td><td>7.5</td></tr>
+          <tr><td>25</td><td class="highlight">38.5</td><td>8</td></tr>
+          <tr><td>25.5</td><td class="highlight">39</td><td>8.5</td></tr>
+          <tr><td>26</td><td class="highlight">40</td><td>9</td></tr>
+          <tr><td>26.5</td><td class="highlight">40.5</td><td>9.5</td></tr>
+          <tr><td>27</td><td class="highlight">41</td><td>10</td></tr>
+          <tr><td>27.5</td><td class="highlight">42</td><td>10.5</td></tr>
+          <tr><td>28</td><td class="highlight">42.5</td><td>11</td></tr>
+          <tr><td>28.5</td><td class="highlight">43</td><td>11.5</td></tr>
+          <tr><td>29</td><td class="highlight">44</td><td>12</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="wa-banner">
+    <div>
+      <h3>¿Tienes dudas con tu talla?</h3>
+      <p>Escríbenos por WhatsApp y te asesoramos personalmente</p>
+    </div>
+    <a href="https://wa.me/51961836500?text=Hola!%20Tengo%20dudas%20sobre%20mi%20talla%20👟" class="wa-btn" target="_blank">💬 Consultar talla</a>
+  </div>
+
+</div><!-- /content -->
+
+<script>
+function mostrarMarca(marca, btn) {
+  document.querySelectorAll(".marca-section").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById("marca-" + marca).classList.add("active");
+  btn.classList.add("active");
+}
+function mostrarGenero(marca, genero, btn) {
+  const sec = document.getElementById("marca-" + marca);
+  sec.querySelectorAll(".genero-section").forEach(s => s.classList.remove("active"));
+  sec.querySelectorAll(".subtab-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById(marca + "-" + genero).classList.add("active");
+  btn.classList.add("active");
+}
+</script>
+</body>
+</html>

@@ -851,3 +851,139 @@ footer p { font-size: 0.72rem; color: #444; }
   gap: 8px;
   margin-top: 8px;
 }
+/* ══════════════════════════════════════════
+   ESTILO ADIDAS — Hover imagen, tallas hover
+══════════════════════════════════════════ */
+
+/* Imagen con transición suave */
+.producto-img {
+  position: relative;
+  overflow: hidden;
+}
+.img-principal {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: opacity .35s ease, transform .4s ease;
+}
+.producto:hover .img-principal {
+  transform: scale(1.03);
+}
+.emoji-placeholder {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+}
+
+/* Tallas — aparecen en hover sobre la imagen */
+.tallas-hover {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(255,255,255,0.97);
+  padding: 10px 12px 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+  transform: translateY(100%);
+  transition: transform .28s ease;
+  border-top: 1px solid #e8e8e8;
+}
+.producto:hover .tallas-hover {
+  transform: translateY(0);
+}
+.tallas-hover .talla-chip {
+  min-width: 34px;
+  height: 30px;
+  padding: 0 7px;
+  border: 1.5px solid #222;
+  border-radius: 0;
+  font-size: 0.62rem;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  color: #222;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  transition: background .15s, color .15s;
+  cursor: pointer;
+}
+.tallas-hover .talla-chip:hover {
+  background: #222;
+  color: #fff;
+}
+
+/* Guía de tallas link — estilo Adidas */
+.guia-link {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #222;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  margin-left: auto;
+  white-space: nowrap;
+  transition: color .15s;
+}
+.guia-link:hover {
+  color: #000;
+  text-decoration-thickness: 2px;
+}
+
+/* Precios — tipografía limpia Montserrat (estilo Adidas) */
+.precio-wrap {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.precio-normal {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: -0.3px;
+}
+.precio-normal small {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: #888;
+  letter-spacing: 0;
+}
+.precio-nuevo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: -0.3px;
+}
+.precio-tachado {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: #999;
+  text-decoration: line-through;
+}
+.precio-badge {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #fff;
+  background: #c0392b;
+  padding: 2px 7px;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+}
+
+/* Ocultar tallas antiguas del body de la tarjeta */
+.producto-tallas { display: none; }
