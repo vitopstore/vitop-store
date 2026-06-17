@@ -881,7 +881,7 @@ footer p { font-size: 0.72rem; color: #444; }
   font-size: 5rem;
 }
 
-/* Tallas — aparecen en hover sobre la imagen */
+/* Tallas — aparecen en hover sobre la imagen (zona inferior) */
 .tallas-hover {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -894,9 +894,12 @@ footer p { font-size: 0.72rem; color: #444; }
   transform: translateY(100%);
   transition: transform .28s ease;
   border-top: 1px solid #e8e8e8;
+  /* Solo aparece cuando el mouse está en la zona inferior */
+  pointer-events: none;
 }
 .producto:hover .tallas-hover {
   transform: translateY(0);
+  pointer-events: auto;
 }
 .tallas-hover .talla-chip {
   min-width: 34px;
@@ -914,14 +917,14 @@ footer p { font-size: 0.72rem; color: #444; }
   justify-content: center;
   background: #fff;
   transition: background .15s, color .15s;
-  cursor: pointer;
+  cursor: default;
 }
 .tallas-hover .talla-chip:hover {
   background: #222;
   color: #fff;
 }
 
-/* Guía de tallas link — estilo Adidas */
+/* Guía de tallas link */
 .guia-link {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.6rem;
@@ -934,6 +937,7 @@ footer p { font-size: 0.72rem; color: #444; }
   margin-left: auto;
   white-space: nowrap;
   transition: color .15s;
+  cursor: pointer;
 }
 .guia-link:hover {
   color: #000;

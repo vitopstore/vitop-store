@@ -22,10 +22,11 @@ function emoji(cat) { return EMOJI_CAT[cat] || "🛍️"; }
 
 function limpiarNombre(nombre) {
   return nombre
-    .replace(/^SKU:\s*[\w-]+\s*/i, "")
-    .replace(/^\d{6}\s*[-–]\s*[\w]+\s*/i, "")
-    .replace(/^\d{6}\s*[-–]\s*/i, "")
-    .replace(/^[\d\s\-–]+/, "")
+    .replace(/^SKU:\s*/i, "")                        // quita "SKU: " al inicio
+    .replace(/^[\w-]*\d{4,}[\w-]*\s*[-–]?\s*/i, "") // quita códigos tipo If9395, JS4402, FQ8146-104
+    .replace(/^\d{6}\s*[-–]\s*[\w]+\s*/i, "")        // quita 397646-06
+    .replace(/^\d{6}\s*[-–]\s*/i, "")                // quita 397646 -
+    .replace(/^[\d\s\-–]+/, "")                       // quita números sueltos
     .trim();
 }
 
@@ -194,22 +195,23 @@ function iniciarApp(productos) {
     '</div>';
   }
 
-  // Hover: cambiar imagen a img2
+  // Hover: cambiar imagen a img2 al entrar en la tarjeta, restaurar al salir
   document.addEventListener("mouseover", e => {
-    const img = e.target.closest(".producto-img")?.querySelector(".img-principal");
-    if (img && img.dataset.img2 && !img.dataset.original) {
-      img.dataset.original = img.src;
+    const prod = e.target.closest(".producto");
+    if (!prod) return;
+    const img = prod.querySelector(".img-principal");
+    if (img && img.dataset.img2 && img.src !== img.dataset.img2) {
+      if (!img.dataset.original) img.dataset.original = img.src;
       img.src = img.dataset.img2;
     }
   });
   document.addEventListener("mouseout", e => {
     const prod = e.target.closest(".producto");
-    if (prod && !prod.contains(e.relatedTarget)) {
-      const img = prod.querySelector(".img-principal");
-      if (img && img.dataset.original) {
-        img.src = img.dataset.original;
-        delete img.dataset.original;
-      }
+    if (!prod || prod.contains(e.relatedTarget)) return;
+    const img = prod.querySelector(".img-principal");
+    if (img && img.dataset.original) {
+      img.src = img.dataset.original;
+      delete img.dataset.original;
     }
   });
 
