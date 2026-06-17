@@ -5,9 +5,8 @@
 
 const WA_NUMBER = "51961836500";
 
-const SHEET_URL = "https://corsproxy.io/?" + encodeURIComponent(
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vTs97ABaxAcqTiWE-FimeAb96n9asWvXlo9H-QvUKXNtvq-I-H9JoqMZ3RHXAfokC09JaykIUXvGvoT/pub?gid=1777311677&single=true&output=csv"
-);
+const SHEET_ID = "1rgFNqcARXpxsRBqWMOjBizt2E52mQDPM5YMCBVAwWPs";
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:csv&sheet=CATALOGO";
 
 const EMOJI_CAT = {
   "Zapatilla Hombre":    "👟",
