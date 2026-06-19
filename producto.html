@@ -399,6 +399,7 @@
   </div>
 </div>
 
+<script src="tallas-data.js"></script>
 <script>
 const WA_NUMBER = "51961836500";
 const SHEET_ID  = "1rgFNqcARXpxsRBqWMOjBizt2E52mQDPM5YMCBVAwWPs";
@@ -513,12 +514,16 @@ function renderDetalle(p) {
        </div>`
     : `<div class="detalle-precio">S/ ${precio.toFixed(2)} <small>/ und</small></div>`;
 
-  // Tallas — se muestran ÚNICAMENTE las que realmente existen en stock
-  // (antes se mostraba un rango completo con tallas "falsas" deshabilitadas,
-  // lo cual confundía al cliente haciéndole creer que había más stock del real)
-  const tallasHTML = tallas
-    .map(t => `<button class="talla-btn" onclick="seleccionarTalla(this, '${t}')">${t}</button>`)
-    .join("");
+  // Tallas — rango completo real según marca/género (estilo Nike.com):
+  // disponibles = seleccionables (negro al hover/seleccionar)
+  // sin stock   = grises, no clickeables
+  const tallasHTML = generarGrillaTallas(p.Nombre, p.Categoria, tallas, {
+    tagName: "button",
+    claseBase: "talla-btn",
+    claseDisponible: "",                 // .talla-btn ya es el estilo disponible por defecto
+    claseNoDisponible: "no-disponible",
+    onClickFn: "seleccionarTalla(this, 'TALLA')",
+  });
 
   document.title = `${nombre} — VITOP STORE`;
 

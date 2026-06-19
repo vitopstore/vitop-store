@@ -184,8 +184,13 @@ function iniciarApp(productos) {
         ? '<span class="stock-low">⚡ Solo ' + stock + ' disponible' + (stock > 1 ? 's' : '') + '</span>'
         : '<span class="stock-ok">✓ ' + stock + ' en stock</span>';
 
-    // Tallas — ocultas, aparecen en hover (estilo Adidas)
-    const tallasHTML = tallas.split(",").map(t => '<span class="talla-chip">' + t.trim() + '</span>').join("");
+    // Tallas — rango completo real según marca/género (estilo Nike.com):
+    // disponibles en negro/seleccionable, sin stock en gris/opaco
+    const tallasReales = tallas.split(",").map(t => t.trim()).filter(Boolean);
+    const tallasHTML = generarGrillaTallas(p.Nombre, p.Categoria, tallasReales, {
+      tagName: "span",
+      claseBase: "talla-chip",
+    });
 
     const btnWA = hayStock
       ? '<a href="https://wa.me/' + WA_NUMBER + '?text=' + mensajeWA(nombre, precio, tallas) + '" target="_blank" class="btn-whatsapp" onclick="event.stopPropagation()">💬 Pedir</a>'

@@ -809,9 +809,18 @@ footer p { font-size: 0.72rem; color: #444; }
   transition: background .15s, color .15s;
   cursor: default;
 }
-.tallas-hover .talla-chip:hover {
+.tallas-hover .talla-chip.disponible:hover {
   background: #222;
   color: #fff;
+}
+
+/* Talla sin stock: opaca y sin posibilidad de confundirla con disponible */
+.tallas-hover .talla-chip.no-disponible {
+  border-color: #ddd;
+  color: #bbb;
+  background: #f7f7f5;
+  text-decoration: line-through;
+  opacity: .6;
 }
 
 /* Guía de tallas link */
