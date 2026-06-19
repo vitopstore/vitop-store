@@ -80,26 +80,50 @@
       <h3>¿No encuentras lo que buscas?</h3>
       <p>Escríbenos y te ayudamos a encontrar el producto perfecto</p>
     </div>
-    <a href="https://wa.me/51961836500?text=Hola%20Vitop!%20Busco%20un%20producto%20específico%20🛍️" 
-       class="btn-wa-banner" target="_blank">💬 Escribir por WhatsApp</a>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="https://wa.me/51932611086?text=Hola%20Vitop!%20Busco%20un%20producto%20específico%20🛍️" 
+         class="btn-wa-banner" target="_blank">💬 Stefany</a>
+      <a href="https://wa.me/51961836500?text=Hola%20Vitop!%20Busco%20un%20producto%20específico%20🛍️" 
+         class="btn-wa-banner" target="_blank">💬 Victor</a>
+    </div>
   </div>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">VITOP<span>.</span></div>
-    <p>© 2025 Vitop Store · Hecho con ❤️ en Perú</p>
-    <a href="https://wa.me/51961836500" class="footer-wa" target="_blank">💬 WhatsApp</a>
+    <div class="footer-empresa">
+      <div>© 2025–<span id="footerAnio"></span> <strong style="color:#b8973a">VITOP STORE</strong></div>
+      <div>ACG PERU S.A.C. &nbsp;·&nbsp; RUC: 20615469123</div>
+      <div>Quillabamba, La Convención, Cusco — Perú</div>
+      <div style="margin-top:4px">
+        <a href="mailto:acgperusac@gmail.com" style="color:#666;text-decoration:none">acgperusac@gmail.com</a>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+      <a href="https://wa.me/51932611086" class="footer-wa" target="_blank">💬 Stefany</a>
+      <a href="https://wa.me/51961836500" class="footer-wa" target="_blank">💬 Victor</a>
+    </div>
   </footer>
 
-  <!-- BOTÓN FLOTANTE -->
-  <a href="https://wa.me/51961836500?text=Hola%20Vitop%20Store!%20🛍️" 
-     class="wa-float" target="_blank" title="Escríbenos">💬</a>
+  <!-- BOTONES FLOTANTES DOS ASESORES -->
+  <div class="wa-float-grupo">
+    <a href="https://wa.me/51932611086?text=Hola%20Vitop%20Store!%20🛍️%20Necesito%20ayuda" 
+       class="wa-float-btn stefany" target="_blank" title="Asesora Stefany">
+      <span class="wa-icon">💬</span>
+      <div><div>Stefany</div><div class="wa-name">+51 932 611 086</div></div>
+    </a>
+    <a href="https://wa.me/51961836500?text=Hola%20Vitop%20Store!%20🛍️%20Necesito%20ayuda" 
+       class="wa-float-btn victor" target="_blank" title="Asesor Victor">
+      <span class="wa-icon">💬</span>
+      <div><div>Victor</div><div class="wa-name">+51 961 836 500</div></div>
+    </a>
+  </div>
 
   <script src="tallas-data.js"></script>
   <script src="script.js"></script>
   <script>
-    // Auto-año en badge hero
     document.getElementById('anioActual').textContent = new Date().getFullYear();
+    document.getElementById('footerAnio').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>

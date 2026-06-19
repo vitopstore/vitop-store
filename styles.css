@@ -958,3 +958,74 @@ footer p { font-size: 0.72rem; color: #444; }
   pointer-events: auto;
   cursor: pointer;
 }
+
+/* ══════════════════════════════════════════════
+   FIX #1: Guía de tallas — cursor pointer + hover negrita
+   FIX #5: Botón flotante doble asesor
+══════════════════════════════════════════════ */
+
+/* Asegura que guia-link siempre sea clickeable dentro del hover panel */
+.tallas-hover .guia-link {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  display: inline-block;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: font-weight 0s, color .15s;
+}
+.tallas-hover .guia-link:hover {
+  font-weight: 900 !important;
+  color: #000;
+  text-decoration-thickness: 2px;
+}
+
+/* Botón flotante — doble asesor */
+.wa-float-grupo {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 200;
+}
+.wa-float-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #25D366;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37,211,102,.4);
+  letter-spacing: 0.5px;
+  transition: transform .2s, opacity .2s;
+  white-space: nowrap;
+}
+.wa-float-btn:hover { opacity: .9; transform: scale(1.05); }
+.wa-float-btn .wa-icon { font-size: 1.1rem; }
+.wa-float-btn .wa-name { font-size: 0.65rem; opacity: .85; }
+.wa-float-btn.stefany { background: #128C7E; }
+.wa-float-btn.victor  { background: #25D366; }
+
+/* Animación flotante para el grupo */
+.wa-float-grupo { animation: floatGrp 3.5s ease-in-out infinite; }
+@keyframes floatGrp {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Empresa info en footer */
+.footer-empresa {
+  font-size: 0.65rem;
+  color: #444;
+  letter-spacing: 0.5px;
+  line-height: 1.7;
+  text-align: center;
+}
+.footer-empresa span { color: #666; }
