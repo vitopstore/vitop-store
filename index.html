@@ -11,7 +11,10 @@
 
   <!-- BARRA SUPERIOR -->
   <div class="top-bar">
-    ✦ Envíos a todo el Perú &nbsp;·&nbsp; Escríbenos por WhatsApp &nbsp;·&nbsp; Productos 100% Originales ✦
+    ✦ Envíos a todo el Perú &nbsp;·&nbsp; 
+    <a href="https://wa.me/51932611086" target="_blank" style="color:inherit;text-decoration:none;">Stefany +51 932 611 086</a> &nbsp;·&nbsp; 
+    <a href="https://wa.me/51961836500" target="_blank" style="color:inherit;text-decoration:none;">Victor +51 961 836 500</a> &nbsp;·&nbsp; 
+    Productos 100% Originales ✦
   </div>
 
   <!-- NAV -->
@@ -25,7 +28,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
-      <div class="hero-badge">🔥 Nueva colección 2025</div>
+      <div class="hero-badge">🔥 Nueva colección <span id="anioActual"></span></div>
       <h1>Estilo que define<br>tu <em>esencia</em></h1>
       <p>Nike, Adidas, Jordan, CAT, Puma y más — originales, con envío a todo el Perú.</p>
       <a href="#catalogo" class="btn-hero">Ver Catálogo</a>
@@ -44,7 +47,10 @@
         <div class="section-eye">Catálogo</div>
         <h2 class="section-title">Productos <em>Disponibles</em></h2>
       </div>
-      <div class="resultado-count" id="contadorResultados"></div>
+      <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <button id="btnDescargarPDF" class="btn-pdf" title="Descargar catálogo PDF">📄 Catálogo PDF</button>
+        <div class="resultado-count" id="contadorResultados"></div>
+      </div>
     </div>
 
     <div class="filtros" id="filtros">
@@ -91,5 +97,9 @@
 
   <script src="tallas-data.js"></script>
   <script src="script.js"></script>
+  <script>
+    // Auto-año en badge hero
+    document.getElementById('anioActual').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

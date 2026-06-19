@@ -890,3 +890,71 @@ footer p { font-size: 0.72rem; color: #444; }
 
 /* Ocultar tallas antiguas del body de la tarjeta */
 .producto-tallas { display: none; }
+/* ══════════════════════════════
+   DOS ASESORES — botones de contacto
+══════════════════════════════ */
+.btn-asesores {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.btn-asesor {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #25D366;
+  color: #fff;
+  padding: 7px 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity .18s, transform .18s;
+  white-space: nowrap;
+}
+.btn-asesor:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+/* ── Botón PDF Catálogo ────────────────── */
+.btn-pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1.5px solid var(--black);
+  color: var(--black);
+  padding: 8px 18px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+  white-space: nowrap;
+}
+.btn-pdf:hover {
+  background: var(--black);
+  color: var(--gold);
+}
+.btn-pdf:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Fix: guia-link debe ser clickeable en hover */
+.tallas-hover {
+  pointer-events: none;
+}
+.producto:hover .tallas-hover {
+  pointer-events: auto;
+}
+.tallas-hover .guia-link {
+  pointer-events: auto;
+  cursor: pointer;
+}

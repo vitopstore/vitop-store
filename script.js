@@ -3,7 +3,8 @@
 //   Estilo Adidas — hover image, tallas en hover
 // ══════════════════════════════
 
-const WA_NUMBER = "51961836500";
+const WA_NUMBER    = "51961836500";  // Asesor Victor
+const WA_STEFANY   = "51932611086";  // Asesor Stefany
 
 const SHEET_ID = "1rgFNqcARXpxsRBqWMOjBizt2E52mQDPM5YMCBVAwWPs";
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:csv&sheet=CATALOGO";
@@ -148,10 +149,10 @@ function iniciarApp(productos) {
       return;
     }
     sinResultados.style.display = "none";
-    contenedor.innerHTML = lista.map(tarjeta).join("");
+    contenedor.innerHTML = lista.map((p, i) => tarjeta(p, i)).join("");
   }
 
-  function tarjeta(p) {
+  function tarjeta(p, idx) {
     const nombre      = limpiarNombre(p.Nombre);
     const precio      = parseFloat(p.Precio) || 0;
     const descuento   = parseFloat((p.Descuento || "").toString().trim()) || 0;
@@ -192,8 +193,17 @@ function iniciarApp(productos) {
       claseBase: "talla-chip",
     });
 
+    // Tallas hover — solo en tarjetas 2+; la primera muestra solo imagen
+    const tallasHoverHTML = idx === 0 ? '' :
+      '<div class="tallas-hover">' + tallasHTML +
+        '<a href="guia-tallas.html" class="guia-link" onclick="event.stopPropagation()" target="_blank">Guía de tallas</a>' +
+      '</div>';
+
     const btnWA = hayStock
-      ? '<a href="https://wa.me/' + WA_NUMBER + '?text=' + mensajeWA(nombre, precio, tallas) + '" target="_blank" class="btn-whatsapp" onclick="event.stopPropagation()">💬 Pedir</a>'
+      ? '<div class="btn-asesores">' +
+          '<a href="https://wa.me/' + WA_STEFANY + '?text=' + mensajeWA(nombre, precio, tallas) + '" target="_blank" class="btn-asesor" onclick="event.stopPropagation()" title="Asesora Stefany">💬 Stefany</a>' +
+          '<a href="https://wa.me/' + WA_NUMBER + '?text=' + mensajeWA(nombre, precio, tallas) + '" target="_blank" class="btn-asesor" onclick="event.stopPropagation()" title="Asesor Victor">💬 Victor</a>' +
+        '</div>'
       : '<span class="btn-whatsapp agotado">😔 Agotado</span>';
 
     const precioHTML = descuento > 0
@@ -207,9 +217,7 @@ function iniciarApp(productos) {
     return '<div class="producto" onclick="window.location.href=\'producto.html?h=' + encodeURIComponent(p.Handle) + '\'" style="cursor:pointer">' +
       '<div class="producto-img">' +
         badge + imgHTML + emojiHTML +
-        '<div class="tallas-hover">' + tallasHTML +
-          '<a href="guia-tallas.html" class="guia-link" onclick="event.stopPropagation()" target="_blank">Guía de tallas</a>' +
-        '</div>' +
+        tallasHoverHTML +
       '</div>' +
       '<div class="producto-body">' +
         '<div class="producto-cat">' + p.Categoria + '</div>' +
@@ -241,4 +249,142 @@ function iniciarApp(productos) {
   });
 
   renderizar();
+
+  // ── Generar PDF del catálogo ──────────────────────────────────────────────
+  const btnPDF = document.getElementById("btnDescargarPDF");
+  if (btnPDF) {
+    btnPDF.addEventListener("click", () => generarCatalogoPDF(productos));
+  }
+}
+// ══════════════════════════════════════════════════════
+//   GENERAR CATÁLOGO PDF
+//   Usa print CSS para generar un PDF limpio y ordenado
+// ══════════════════════════════════════════════════════
+function generarCatalogoPDF(productos) {
+  const btn = document.getElementById("btnDescargarPDF");
+  if (btn) { btn.textContent = "⏳ Generando..."; btn.disabled = true; }
+
+  const anio = new Date().getFullYear();
+  const productosConStock = productos.filter(p => parseInt(p.Stock) > 0);
+
+  // Agrupar por categoría
+  const grupos = {};
+  productosConStock.forEach(p => {
+    const cat = p.Categoria || "Otros";
+    if (!grupos[cat]) grupos[cat] = [];
+    grupos[cat].push(p);
+  });
+
+  // Categorías ordenadas
+  const catOrden = Object.keys(grupos).sort();
+
+  // Generar filas de productos para el PDF
+  function rowsHTML(lista) {
+    return lista.map(p => {
+      const nombre = limpiarNombre(p.Nombre);
+      const precio = parseFloat(p.Precio) || 0;
+      const descuento = parseFloat((p.Descuento || "").toString().trim()) || 0;
+      const precioFinal = descuento > 0 ? (Math.round(precio * (1 - descuento / 100) * 100) / 100) : precio;
+      const stock = parseInt(p.Stock) || 0;
+      const tallas = (p.Tallas || "").split(",").map(t => t.trim()).filter(Boolean).join(" · ");
+      const precioStr = descuento > 0
+        ? `<span style="font-weight:700">S/ ${precioFinal.toFixed(2)}</span> <span style="text-decoration:line-through;color:#999;font-size:0.75rem">S/ ${precio.toFixed(2)}</span> <span style="color:#c0392b;font-size:0.7rem;font-weight:700">-${descuento}%</span>`
+        : `<span style="font-weight:700">S/ ${precio.toFixed(2)}</span>`;
+      const stockBadge = stock <= 2
+        ? `<span style="color:#d97706;font-weight:600">⚡ ${stock} disp.</span>`
+        : `<span style="color:#16a34a;font-weight:600">✓ ${stock}</span>`;
+      return `<tr>
+        <td style="padding:8px 10px;border-bottom:1px solid #eee;font-size:0.82rem">${nombre}</td>
+        <td style="padding:8px 10px;border-bottom:1px solid #eee;font-size:0.78rem;color:#555">${tallas || "—"}</td>
+        <td style="padding:8px 10px;border-bottom:1px solid #eee;font-size:0.82rem;white-space:nowrap">${precioStr}</td>
+        <td style="padding:8px 10px;border-bottom:1px solid #eee;font-size:0.78rem;text-align:center">${stockBadge}</td>
+      </tr>`;
+    }).join("");
+  }
+
+  const seccionesHTML = catOrden.map(cat => `
+    <div class="pdf-seccion">
+      <h3 class="pdf-cat-titulo">${cat}</h3>
+      <table style="width:100%;border-collapse:collapse">
+        <thead>
+          <tr style="background:#0c0c0c;color:#b8973a">
+            <th style="padding:8px 10px;text-align:left;font-size:0.72rem;letter-spacing:1.5px;text-transform:uppercase">Producto</th>
+            <th style="padding:8px 10px;text-align:left;font-size:0.72rem;letter-spacing:1.5px;text-transform:uppercase">Tallas disponibles</th>
+            <th style="padding:8px 10px;text-align:left;font-size:0.72rem;letter-spacing:1.5px;text-transform:uppercase">Precio</th>
+            <th style="padding:8px 10px;text-align:center;font-size:0.72rem;letter-spacing:1.5px;text-transform:uppercase">Stock</th>
+          </tr>
+        </thead>
+        <tbody>${rowsHTML(grupos[cat])}</tbody>
+      </table>
+    </div>
+  `).join("");
+
+  const html = `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Catálogo VITOP ${anio}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Montserrat',sans-serif; font-weight:300; color:#0c0c0c; background:#fff; padding:0; }
+    .pdf-header { background:#0c0c0c; color:#fff; padding:32px 40px; display:flex; align-items:center; justify-content:space-between; }
+    .pdf-logo { font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:600; letter-spacing:6px; }
+    .pdf-logo span { color:#b8973a; }
+    .pdf-header-info { text-align:right; }
+    .pdf-header-info h2 { font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:#b8973a; margin-bottom:4px; }
+    .pdf-header-info p { font-size:0.7rem; color:#666; }
+    .pdf-contacto { background:#f8f6f1; padding:14px 40px; display:flex; gap:2rem; align-items:center; border-bottom:2px solid #b8973a; }
+    .pdf-contacto span { font-size:0.72rem; font-weight:500; }
+    .pdf-contacto strong { color:#b8973a; }
+    .pdf-body { padding:24px 40px; }
+    .pdf-resumen { font-size:0.78rem; color:#555; margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid #eee; }
+    .pdf-seccion { margin-bottom:28px; page-break-inside:avoid; }
+    .pdf-cat-titulo { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:10px 0 8px; border-bottom:2px solid #0c0c0c; margin-bottom:0; color:#0c0c0c; }
+    table { font-family:'Montserrat',sans-serif; }
+    tbody tr:nth-child(even) td { background:#fafaf8; }
+    tbody tr:hover td { background:#f0ede4; }
+    .pdf-footer { background:#0c0c0c; color:#555; padding:16px 40px; font-size:0.68rem; letter-spacing:1px; text-align:center; margin-top:20px; }
+    @media print {
+      .pdf-header { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      thead tr { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      .pdf-contacto { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      .pdf-footer { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="pdf-header">
+    <div class="pdf-logo">VITOP<span>.</span></div>
+    <div class="pdf-header-info">
+      <h2>Catálogo de Productos</h2>
+      <p>${anio} · Productos 100% Originales · Perú</p>
+    </div>
+  </div>
+  <div class="pdf-contacto">
+    <span>📞 Asesora <strong>Stefany</strong>: +51 932 611 086</span>
+    <span>📞 Asesor <strong>Victor</strong>: +51 961 836 500</span>
+    <span>🛍️ vitopstore.github.io/vitop-store</span>
+  </div>
+  <div class="pdf-body">
+    <p class="pdf-resumen">${productosConStock.length} productos disponibles en ${catOrden.length} categorías · Generado el ${new Date().toLocaleDateString('es-PE', {day:'2-digit',month:'long',year:'numeric'})}</p>
+    ${seccionesHTML}
+  </div>
+  <div class="pdf-footer">© ${anio} VITOP STORE · Hecho con ❤️ en Perú · Precios en Soles (S/) · Sujetos a disponibilidad</div>
+  <script>window.onload = function(){ window.print(); }<\/script>
+</body>
+</html>`;
+
+  const win = window.open("", "_blank");
+  if (!win) {
+    alert("Por favor permite las ventanas emergentes para generar el PDF.");
+    if (btn) { btn.textContent = "📄 Catálogo PDF"; btn.disabled = false; }
+    return;
+  }
+  win.document.write(html);
+  win.document.close();
+
+  if (btn) {
+    setTimeout(() => { btn.textContent = "📄 Catálogo PDF"; btn.disabled = false; }, 2000);
+  }
 }
