@@ -1035,7 +1035,7 @@ footer p { font-size: 0.72rem; color: #444; }
 ══════════════════════════════════════════════ */
 .zoom-hint-cat {
   position: absolute;
-  bottom: 10px;
+  top: 10px;
   right: 10px;
   width: 32px;
   height: 32px;
@@ -1048,7 +1048,7 @@ footer p { font-size: 0.72rem; color: #444; }
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 5;
+  z-index: 6;
   opacity: 0;
   transition: opacity .2s, transform .15s, background .15s;
 }

@@ -204,8 +204,9 @@ function iniciarApp(productos) {
       claseBase: "talla-chip",
     });
 
-    // Todas las tarjetas muestran el panel de tallas en hover (incluida la primera)
-    const tallasHoverHTML =
+    // Card 1 (idx=0): solo imagen, sin panel de tallas (para no tapar la foto).
+    // Cards 2+: panel de tallas visible en hover.
+    const tallasHoverHTML = idx === 0 ? '' :
       '<div class="tallas-hover">' +
         tallasHTML +
         '<a href="guia-tallas.html" class="guia-link" onclick="event.stopPropagation()" target="_blank">Guía de tallas</a>' +
@@ -232,7 +233,7 @@ function iniciarApp(productos) {
     return '<div class="producto" data-handle="' + encodeURIComponent(p.Handle) + '" style="cursor:pointer">' +
       '<div class="producto-img">' +
         badge + imgHTML + emojiHTML +
-        (img1 ? '<button type="button" class="zoom-hint-cat" title="Ampliar imagen" onclick="event.stopPropagation();abrirZoomCat(this)">🔍</button>' : '') +
+        (img1 ? '<button type="button" class="zoom-hint-cat" title="Ampliar imagen" onclick="event.stopPropagation();abrirZoomCat(this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.2" y2="16.2"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg></button>' : '') +
         tallasHoverHTML +
       '</div>' +
       '<div class="producto-body">' +
