@@ -115,10 +115,11 @@
     }
 
     .detalle-nombre {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
-      font-weight: 400;
-      line-height: 1.2;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -.01em;
       color: var(--black);
       margin-bottom: 16px;
     }
@@ -197,15 +198,31 @@
       transition: all .18s;
     }
 
-    .talla-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
+    .talla-btn:hover:not(:disabled) {
+      background: var(--black);
+      border-color: var(--black);
+      color: var(--white);
     }
 
     .talla-btn.selected {
       background: var(--black);
       border-color: var(--black);
       color: var(--white);
+    }
+
+    /* Talla sin stock: visualmente distinta, no debe confundirse con disponible */
+    .talla-btn.no-disponible {
+      background: var(--cream);
+      border-color: var(--border);
+      color: var(--muted);
+      text-decoration: line-through;
+      cursor: not-allowed;
+      opacity: .55;
+    }
+    .talla-btn.no-disponible:hover {
+      background: var(--cream);
+      border-color: var(--border);
+      color: var(--muted);
     }
 
     /* ── BOTÓN WHATSAPP ───────────────────────── */
@@ -496,32 +513,12 @@ function renderDetalle(p) {
        </div>`
     : `<div class="detalle-precio">S/ ${precio.toFixed(2)} <small>/ und</small></div>`;
 
-  // Tallas — todas las EU del producto más tallas adicionales bloqueadas
-  // Definir rango completo según categoría
-  const TALLAS_HOMBRE_EU = ["40","40.5","41","42","42.5","43","44","44.5","45"];
-  const TALLAS_MUJER_EU  = ["35","35.5","36","36.5","37","37.5","38","38.5","39","39.5","40"];
-  const TALLAS_UNISEX    = ["35.5","36","37","38","38.5","40","40.5","42","44"];
-
-  const catLower = (p.Categoria || "").toLowerCase();
-  let tallasCompletas = [];
-  if (catLower.includes("mujer")) tallasCompletas = TALLAS_MUJER_EU;
-  else if (catLower.includes("hombre") || catLower.includes("botin")) tallasCompletas = TALLAS_HOMBRE_EU;
-  else if (catLower.includes("unisex")) tallasCompletas = TALLAS_UNISEX;
-
-  // Si hay tallas completas definidas, mostrar rango con disponibles/no disponibles
-  // Si no (medias, polos), solo mostrar las disponibles
-  const tallasHTML = tallasCompletas.length > 0
-    ? tallasCompletas.map(t => {
-        const disponible = tallas.includes(t);
-        if (disponible) {
-          return `<button class="talla-btn" onclick="seleccionarTalla(this, '${t}')">${t}</button>`;
-        } else {
-          return `<button class="talla-btn no-disponible" disabled title="Talla no disponible">${t}</button>`;
-        }
-      }).join("")
-    : tallas.map(t =>
-        `<button class="talla-btn" onclick="seleccionarTalla(this, '${t}')">${t}</button>`
-      ).join("");
+  // Tallas — se muestran ÚNICAMENTE las que realmente existen en stock
+  // (antes se mostraba un rango completo con tallas "falsas" deshabilitadas,
+  // lo cual confundía al cliente haciéndole creer que había más stock del real)
+  const tallasHTML = tallas
+    .map(t => `<button class="talla-btn" onclick="seleccionarTalla(this, '${t}')">${t}</button>`)
+    .join("");
 
   document.title = `${nombre} — VITOP STORE`;
 

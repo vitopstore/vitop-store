@@ -21,13 +21,33 @@ const EMOJI_CAT = {
 function emoji(cat) { return EMOJI_CAT[cat] || "🛍️"; }
 
 function limpiarNombre(nombre) {
-  return nombre
-    .replace(/^SKU:\s*/i, "")                        // quita "SKU: " al inicio
-    .replace(/^[\w-]*\d{4,}[\w-]*\s*[-–]?\s*/i, "") // quita códigos tipo If9395, JS4402, FQ8146-104
-    .replace(/^\d{6}\s*[-–]\s*[\w]+\s*/i, "")        // quita 397646-06
-    .replace(/^\d{6}\s*[-–]\s*/i, "")                // quita 397646 -
-    .replace(/^[\d\s\-–]+/, "")                       // quita números sueltos
-    .trim();
+  let n = String(nombre || "").trim();
+
+  n = n.replace(/^SKU:\s*/i, "");                          // quita "SKU: " al inicio
+
+  // Quita cualquier cantidad de códigos/SKU al inicio (uno o varios, separados
+  // por espacios o guiones). Un "código" = trae al menos un dígito mezclado
+  // con letras/guiones, ej: If9395, JS4402, FQ8146-104, 010405, 397646-06.
+  let prev;
+  do {
+    prev = n;
+    n = n.replace(/^[A-Za-z]{0,4}\d{3,}[A-Za-z0-9-]*[\s\-–]+/, "");
+  } while (n !== prev && n.length > 0);
+
+  n = n.replace(/^[\d\s\-–]+/, "");                         // números sueltos restantes
+  n = n.trim();
+
+  // Title Case profesional, conservando siglas/números (SL 2, 13, XL, etc.)
+  n = n
+    .split(" ")
+    .map(w => {
+      if (!w) return w;
+      if (/^[A-Z0-9]+$/.test(w) && w.length <= 4) return w;   // sigla/número: deja igual (SL, XL, 13)
+      return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+    })
+    .join(" ");
+
+  return n;
 }
 
 function mensajeWA(nombre, precio, tallas) {
@@ -183,7 +203,7 @@ function iniciarApp(productos) {
       '<div class="producto-img">' +
         badge + imgHTML + emojiHTML +
         '<div class="tallas-hover">' + tallasHTML +
-          '<a href="guia-tallas/guia-tallas.html" class="guia-link" onclick="event.stopPropagation()" target="_blank">Guía de tallas</a>' +
+          '<a href="guia-tallas.html" class="guia-link" onclick="event.stopPropagation()" target="_blank">Guía de tallas</a>' +
         '</div>' +
       '</div>' +
       '<div class="producto-body">' +
