@@ -94,6 +94,27 @@ function irAProducto(handle) {
   window.location.href = 'producto.html?h=' + encodeURIComponent(handle);
 }
 
+// ── Zoom de imagen en el catálogo (lightbox) ──
+function abrirZoomCat(btn) {
+  const cont = btn.closest(".producto-img");
+  const img = cont ? cont.querySelector(".img-principal") : null;
+  if (!img || !img.src) return;
+  const modal = document.getElementById("modalZoomCat");
+  const zoomImg = document.getElementById("zoom-img-cat");
+  zoomImg.src = img.src;
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function cerrarZoomCat(e) {
+  if (e && e.target !== e.currentTarget && !e.target.classList.contains("zoom-close-btn")) return;
+  document.getElementById("modalZoomCat").classList.remove("open");
+  document.body.style.overflow = "";
+}
+document.addEventListener("keydown", e => {
+  const modal = document.getElementById("modalZoomCat");
+  if (modal && modal.classList.contains("open") && e.key === "Escape") cerrarZoomCat();
+});
+
 function iniciarApp(productos) {
   const contenedor    = document.getElementById("productos");
   const buscador      = document.getElementById("buscador");
@@ -183,8 +204,8 @@ function iniciarApp(productos) {
       claseBase: "talla-chip",
     });
 
-    // Card 1 (idx=0): imagen swap solamente. Cards 2+: panel de tallas en hover
-    const tallasHoverHTML = idx === 0 ? '' :
+    // Todas las tarjetas muestran el panel de tallas en hover (incluida la primera)
+    const tallasHoverHTML =
       '<div class="tallas-hover">' +
         tallasHTML +
         '<a href="guia-tallas.html" class="guia-link" onclick="event.stopPropagation()" target="_blank">Guía de tallas</a>' +
@@ -194,8 +215,8 @@ function iniciarApp(productos) {
     // El div usa data-handle y el click se maneja por delegación abajo
     const btnWA = hayStock
       ? '<div class="btn-asesores" onclick="event.stopPropagation()">' +
-          '<a href="https://wa.me/' + WA_STEFANY + '?text=' + mensajeWA(nombre, precio, tallas) + '" target="_blank" class="btn-asesor" onclick="event.stopPropagation()">💬 Stefany</a>' +
-          '<a href="https://wa.me/' + WA_VICTOR + '?text=' + mensajeWA(nombre, precio, tallas) + '" target="_blank" class="btn-asesor" onclick="event.stopPropagation()">💬 Victor</a>' +
+          '<a href="https://wa.me/' + WA_STEFANY + '?text=' + mensajeWA(nombre, precio, tallas) + '" target="_blank" class="btn-asesor" onclick="event.stopPropagation()">💬 Asesor 1</a>' +
+          '<a href="https://wa.me/' + WA_VICTOR + '?text=' + mensajeWA(nombre, precio, tallas) + '" target="_blank" class="btn-asesor" onclick="event.stopPropagation()">💬 Asesor 2</a>' +
         '</div>'
       : '<span class="btn-whatsapp agotado">😔 Agotado</span>';
 
@@ -211,6 +232,7 @@ function iniciarApp(productos) {
     return '<div class="producto" data-handle="' + encodeURIComponent(p.Handle) + '" style="cursor:pointer">' +
       '<div class="producto-img">' +
         badge + imgHTML + emojiHTML +
+        (img1 ? '<button type="button" class="zoom-hint-cat" title="Ampliar imagen" onclick="event.stopPropagation();abrirZoomCat(this)">🔍</button>' : '') +
         tallasHoverHTML +
       '</div>' +
       '<div class="producto-body">' +
@@ -378,7 +400,7 @@ function generarCatalogoPDF(productos) {
   <!-- Header portada -->
   <div style="padding:48px 48px 0">
     <div style="font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:600;letter-spacing:10px;color:#fff;line-height:1">
-      VITOP<span style="color:#b8973a">.</span>
+      VITOP
     </div>
     <div style="font-size:0.65rem;letter-spacing:4px;color:#666;margin-top:6px;text-transform:uppercase">
       ACG PERU S.A.C. &nbsp;·&nbsp; RUC 20615469123
@@ -403,9 +425,9 @@ function generarCatalogoPDF(productos) {
   <!-- Footer portada -->
   <div style="background:#111;padding:24px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
     <div>
-      <div style="font-size:0.6rem;color:#b8973a;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">Asesoras de Venta</div>
-      <div style="font-size:0.78rem;color:#fff;font-weight:500">📱 Stefany Macedo &nbsp;&nbsp; +51 932 611 086</div>
-      <div style="font-size:0.78rem;color:#fff;font-weight:500;margin-top:2px">📱 Victor Bejar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +51 961 836 500</div>
+      <div style="font-size:0.6rem;color:#b8973a;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">Asesores de Venta</div>
+      <div style="font-size:0.78rem;color:#fff;font-weight:500">📱 Asesor 1 &nbsp;&nbsp; +51 932 611 086</div>
+      <div style="font-size:0.78rem;color:#fff;font-weight:500;margin-top:2px">📱 Asesor 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +51 961 836 500</div>
     </div>
     <div style="text-align:right">
       <div style="font-size:0.6rem;color:#b8973a;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">Contacto</div>
@@ -422,7 +444,7 @@ ${seccionesHTML}
 <!-- PIE DE PÁGINA FINAL -->
 <div style="background:#0c0c0c;padding:20px 48px;display:flex;justify-content:space-between;align-items:center;margin-top:32px">
   <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;letter-spacing:5px;color:#fff">
-    VITOP<span style="color:#b8973a">.</span>
+    VITOP
   </div>
   <div style="font-size:0.65rem;color:#555;letter-spacing:1px;text-align:center">
     © ${anio} VITOP STORE · ACG PERU S.A.C. · RUC 20615469123<br>

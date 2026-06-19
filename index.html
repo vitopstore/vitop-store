@@ -12,14 +12,14 @@
   <!-- BARRA SUPERIOR -->
   <div class="top-bar">
     ✦ Envíos a todo el Perú &nbsp;·&nbsp; 
-    <a href="https://wa.me/51932611086" target="_blank" style="color:inherit;text-decoration:none;">Stefany +51 932 611 086</a> &nbsp;·&nbsp; 
-    <a href="https://wa.me/51961836500" target="_blank" style="color:inherit;text-decoration:none;">Victor +51 961 836 500</a> &nbsp;·&nbsp; 
+    <a href="https://wa.me/51932611086" target="_blank" style="color:inherit;text-decoration:none;">Asesor 1: +51 932 611 086</a> &nbsp;·&nbsp; 
+    <a href="https://wa.me/51961836500" target="_blank" style="color:inherit;text-decoration:none;">Asesor 2: +51 961 836 500</a> &nbsp;·&nbsp; 
     Productos 100% Originales ✦
   </div>
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">VITOP<span>.</span></div>
+    <div class="nav-logo">VITOP</div>
     <input type="text" id="buscador" placeholder="Buscar producto, marca, modelo...">
     <a href="https://wa.me/51961836500?text=Hola%20Vitop%20Store!%20Quiero%20ver%20el%20catálogo" 
        class="nav-wa" target="_blank">💬 WhatsApp</a>
@@ -82,15 +82,15 @@
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap">
       <a href="https://wa.me/51932611086?text=Hola%20Vitop!%20Busco%20un%20producto%20específico%20🛍️" 
-         class="btn-wa-banner" target="_blank">💬 Stefany</a>
+         class="btn-wa-banner" target="_blank">💬 Asesor 1</a>
       <a href="https://wa.me/51961836500?text=Hola%20Vitop!%20Busco%20un%20producto%20específico%20🛍️" 
-         class="btn-wa-banner" target="_blank">💬 Victor</a>
+         class="btn-wa-banner" target="_blank">💬 Asesor 2</a>
     </div>
   </div>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">VITOP<span>.</span></div>
+    <div class="footer-logo">VITOP</div>
     <div class="footer-empresa">
       <div>© 2025–<span id="footerAnio"></span> <strong style="color:#b8973a">VITOP STORE</strong></div>
       <div>ACG PERU S.A.C. &nbsp;·&nbsp; RUC: 20615469123</div>
@@ -100,23 +100,29 @@
       </div>
     </div>
     <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
-      <a href="https://wa.me/51932611086" class="footer-wa" target="_blank">💬 Stefany</a>
-      <a href="https://wa.me/51961836500" class="footer-wa" target="_blank">💬 Victor</a>
+      <a href="https://wa.me/51932611086" class="footer-wa" target="_blank">💬 Asesor 1</a>
+      <a href="https://wa.me/51961836500" class="footer-wa" target="_blank">💬 Asesor 2</a>
     </div>
   </footer>
 
   <!-- BOTONES FLOTANTES DOS ASESORES -->
   <div class="wa-float-grupo">
     <a href="https://wa.me/51932611086?text=Hola%20Vitop%20Store!%20🛍️%20Necesito%20ayuda" 
-       class="wa-float-btn stefany" target="_blank" title="Asesora Stefany">
+       class="wa-float-btn stefany" target="_blank" title="Asesor 1">
       <span class="wa-icon">💬</span>
-      <div><div>Stefany</div><div class="wa-name">+51 932 611 086</div></div>
+      <div><div>Asesor 1</div><div class="wa-name">+51 932 611 086</div></div>
     </a>
     <a href="https://wa.me/51961836500?text=Hola%20Vitop%20Store!%20🛍️%20Necesito%20ayuda" 
-       class="wa-float-btn victor" target="_blank" title="Asesor Victor">
+       class="wa-float-btn victor" target="_blank" title="Asesor 2">
       <span class="wa-icon">💬</span>
-      <div><div>Victor</div><div class="wa-name">+51 961 836 500</div></div>
+      <div><div>Asesor 2</div><div class="wa-name">+51 961 836 500</div></div>
     </a>
+  </div>
+
+  <!-- MODAL ZOOM DE IMAGEN (catálogo) -->
+  <div class="modal-zoom-overlay" id="modalZoomCat" onclick="cerrarZoomCat(event)">
+    <button class="zoom-close-btn" onclick="cerrarZoomCat(event)" title="Cerrar">✕</button>
+    <img id="zoom-img-cat" class="modal-zoom-img" src="" alt="Imagen ampliada">
   </div>
 
   <script src="tallas-data.js"></script>

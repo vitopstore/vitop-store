@@ -34,6 +34,7 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 12px;
+      position: relative;
     }
 
     .galeria-principal img {
@@ -42,6 +43,102 @@
       object-fit: contain;
       padding: 24px;
       transition: opacity .25s ease;
+      cursor: zoom-in;
+    }
+
+    .zoom-hint {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(12,12,12,.78);
+      color: #fff;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform .15s, background .15s;
+    }
+    .zoom-hint:hover { background: var(--black); transform: scale(1.08); }
+
+    .modal-zoom-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-zoom-overlay.open { display: flex; }
+    .modal-zoom-img {
+      max-width: 88vw;
+      max-height: 86vh;
+      object-fit: contain;
+      cursor: default;
+      animation: zoomIn .2s ease;
+    }
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(.96); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .zoom-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,.12);
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .zoom-close-btn:hover { background: rgba(255,255,255,.25); }
+    .zoom-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,.12);
+      color: #fff;
+      font-size: 1.8rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: background .15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .zoom-nav-btn:hover { background: rgba(255,255,255,.25); }
+    #zoom-prev { left: 24px; }
+    #zoom-next { right: 24px; }
+    .zoom-contador {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .8rem;
+      letter-spacing: .05em;
+      background: rgba(255,255,255,.1);
+      padding: 4px 14px;
+      border-radius: 20px;
+    }
+    @media (max-width: 640px) {
+      .zoom-nav-btn { width: 40px; height: 40px; font-size: 1.4rem; }
+      #zoom-prev { left: 8px; }
+      #zoom-next { right: 8px; }
     }
 
     .galeria-principal .emoji-fallback {
@@ -353,7 +450,7 @@
   </div>
 
   <nav>
-    <div class="nav-logo">VITOP<span>.</span></div>
+    <div class="nav-logo">VITOP</div>
     <div></div>
     <a href="https://wa.me/51961836500?text=Hola%20Vitop%20Store!" class="nav-wa" target="_blank">💬 WhatsApp</a>
   </nav>
@@ -375,7 +472,7 @@
   </div>
 
   <footer>
-    <div class="footer-logo">VITOP<span>.</span></div>
+    <div class="footer-logo">VITOP</div>
     <p>© 2025 Vitop Store · Hecho con ❤️ en Perú</p>
     <a href="https://wa.me/51961836500" class="footer-wa" target="_blank">💬 WhatsApp</a>
   </footer>
@@ -397,6 +494,15 @@
     </ol>
     <div id="modal-tabla-wrap"></div>
   </div>
+</div>
+
+<!-- MODAL ZOOM DE IMAGEN -->
+<div class="modal-zoom-overlay" id="modalZoom" onclick="cerrarZoom(event)">
+  <button class="zoom-close-btn" onclick="cerrarZoom(event)" title="Cerrar">✕</button>
+  <button class="zoom-nav-btn" id="zoom-prev" onclick="zoomAnterior(event)" title="Anterior">‹</button>
+  <img id="zoom-img" class="modal-zoom-img" src="" alt="Imagen ampliada">
+  <button class="zoom-nav-btn" id="zoom-next" onclick="zoomSiguiente(event)" title="Siguiente">›</button>
+  <div class="zoom-contador" id="zoom-contador"></div>
 </div>
 
 <script src="tallas-data.js"></script>
@@ -491,10 +597,13 @@ function renderDetalle(p) {
 
   // Imagen principal
   const imgPrincipalHTML = imgs.length > 0
-    ? `<img id="img-principal" src="${imgs[0]}" alt="${nombre}"
+    ? `<img id="img-principal" src="${imgs[0]}" alt="${nombre}" onclick="abrirZoom(window._zoomIdx||0)"
          onerror="this.style.display='none';document.getElementById('emoji-fallback').style.display='flex'">`
     : "";
   const emojiFallbackStyle = imgs.length > 0 ? "display:none" : "";
+  const zoomHintHTML = imgs.length > 0
+    ? `<button type="button" class="zoom-hint" onclick="abrirZoom(window._zoomIdx||0)" title="Ampliar imagen">🔍</button>`
+    : "";
 
   // Miniaturas: solo si hay 2+ fotos, sin placeholders vacíos
   const miniaturasHTML = imgs.length > 1
@@ -534,6 +643,7 @@ function renderDetalle(p) {
       <div class="galeria-principal">
         ${imgPrincipalHTML}
         <div id="emoji-fallback" class="emoji-fallback" style="${emojiFallbackStyle}">${em}</div>
+        ${zoomHintHTML}
       </div>
       ${miniaturasHTML ? `<div class="miniaturas">${miniaturasHTML}</div>` : ""}
     </div>
@@ -572,6 +682,7 @@ function renderDetalle(p) {
 function cambiarFoto(idx) {
   const imgs = window._imgs || [];
   if (!imgs[idx]) return;
+  window._zoomIdx = idx;
   const principal = document.getElementById("img-principal");
   if (principal) {
     principal.style.opacity = "0";
@@ -584,6 +695,68 @@ function cambiarFoto(idx) {
     m.classList.toggle("active", i === idx);
   });
 }
+
+// ── ZOOM / LIGHTBOX ────────────────────────────────────
+function abrirZoom(idx) {
+  const imgs = window._imgs || [];
+  if (!imgs.length) return;
+  window._zoomIdx = idx || 0;
+  const modal = document.getElementById("modalZoom");
+  const imgEl = document.getElementById("zoom-img");
+  imgEl.src = imgs[window._zoomIdx];
+  document.getElementById("zoom-contador").textContent =
+    imgs.length > 1 ? `${window._zoomIdx + 1} / ${imgs.length}` : "";
+  const navVisible = imgs.length > 1 ? "flex" : "none";
+  document.getElementById("zoom-prev").style.display = navVisible;
+  document.getElementById("zoom-next").style.display = navVisible;
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function cerrarZoom(e) {
+  if (e && e.target !== e.currentTarget && !e.target.classList.contains("zoom-close-btn")) return;
+  document.getElementById("modalZoom").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function zoomSiguiente(e) {
+  if (e) e.stopPropagation();
+  const imgs = window._imgs || [];
+  if (!imgs.length) return;
+  window._zoomIdx = (window._zoomIdx + 1) % imgs.length;
+  document.getElementById("zoom-img").src = imgs[window._zoomIdx];
+  document.getElementById("zoom-contador").textContent = `${window._zoomIdx + 1} / ${imgs.length}`;
+  cambiarFotoSilencioso(window._zoomIdx);
+}
+
+function zoomAnterior(e) {
+  if (e) e.stopPropagation();
+  const imgs = window._imgs || [];
+  if (!imgs.length) return;
+  window._zoomIdx = (window._zoomIdx - 1 + imgs.length) % imgs.length;
+  document.getElementById("zoom-img").src = imgs[window._zoomIdx];
+  document.getElementById("zoom-contador").textContent = `${window._zoomIdx + 1} / ${imgs.length}`;
+  cambiarFotoSilencioso(window._zoomIdx);
+}
+
+// Sincroniza galería principal/miniaturas sin animación al navegar desde el zoom
+function cambiarFotoSilencioso(idx) {
+  const imgs = window._imgs || [];
+  if (!imgs[idx]) return;
+  const principal = document.getElementById("img-principal");
+  if (principal) principal.src = imgs[idx];
+  document.querySelectorAll(".miniatura").forEach((m, i) => {
+    m.classList.toggle("active", i === idx);
+  });
+}
+
+document.addEventListener("keydown", e => {
+  const modal = document.getElementById("modalZoom");
+  if (!modal || !modal.classList.contains("open")) return;
+  if (e.key === "Escape") cerrarZoom();
+  if (e.key === "ArrowRight") zoomSiguiente();
+  if (e.key === "ArrowLeft") zoomAnterior();
+});
 
 function seleccionarTalla(btn, talla) {
   document.querySelectorAll(".talla-btn").forEach(b => b.classList.remove("selected"));
