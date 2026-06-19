@@ -204,13 +204,10 @@ function iniciarApp(productos) {
       claseBase: "talla-chip",
     });
 
-    // Card 1 (idx=0): solo imagen, sin panel de tallas (para no tapar la foto).
-    // Cards 2+: panel de tallas visible en hover.
-    const tallasHoverHTML = idx === 0 ? '' :
-      '<div class="tallas-hover">' +
-        tallasHTML +
-        '<a href="guia-tallas.html" class="guia-link" onclick="event.stopPropagation()" target="_blank">Guía de tallas</a>' +
-      '</div>';
+    // El panel de tallas en hover se quitó de TODAS las tarjetas del catálogo
+    // porque tapaba la foto del producto. Las tallas reales se muestran
+    // únicamente en la página de detalle del producto.
+    const tallasHoverHTML = '';
 
     // FIX #4: Los botones WA usan onclick con stopPropagation; NO hay onclick en el div padre que interfiera
     // El div usa data-handle y el click se maneja por delegación abajo
