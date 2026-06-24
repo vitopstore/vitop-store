@@ -621,13 +621,9 @@ function renderDetalle(p) {
     convertirDriveURL(p["Imagen4"] || ""),
   ].filter(Boolean);
 
-  // Badge stock
-  const badgeClass = !hayStock ? "out" : stock <= 2 ? "low" : "ok";
-  const badgeText  = !hayStock
-    ? "Sin stock"
-    : stock <= 2
-      ? `⚡ Solo ${stock} disponible${stock > 1 ? "s" : ""}`
-      : `✓ ${stock} en stock`;
+  // Badge stock — ya NO mostramos la cantidad exacta, siempre "Stock limitado"
+  const badgeClass = !hayStock ? "out" : "ok";
+  const badgeText  = !hayStock ? "Sin stock" : "✓ Stock limitado";
 
   // Imagen principal
   const imgPrincipalHTML = imgs.length > 0

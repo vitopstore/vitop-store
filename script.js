@@ -188,15 +188,11 @@ function iniciarApp(productos) {
 
     const badge = !hayStock
       ? '<span class="badge badge-agotado">Agotado</span>'
-      : stock <= 2
-        ? '<span class="badge badge-stock">⚡ Últimas</span>'
-        : '<span class="badge badge-stock">✓ Stock</span>';
+      : '<span class="badge badge-stock">✓ Stock limitado</span>';
 
     const stockLabel = !hayStock
       ? '<span class="stock-out">Sin stock</span>'
-      : stock <= 2
-        ? '<span class="stock-low">⚡ Solo ' + stock + ' disponible' + (stock > 1 ? 's' : '') + '</span>'
-        : '<span class="stock-ok">✓ ' + stock + ' en stock</span>';
+      : '<span class="stock-ok">✓ Stock limitado</span>';
 
     const tallasReales = tallas.split(",").map(t => t.trim()).filter(Boolean);
     const tallasHTML = generarGrillaTallas(p.Nombre, p.Categoria, tallasReales, {
@@ -328,8 +324,8 @@ function generarCatalogoPDF(productos) {
          <span style="font-size:0.65rem;font-weight:700;color:#fff;background:#c0392b;padding:2px 6px;margin-left:4px;border-radius:2px">-${descuento}%</span>`
       : `<span style="font-size:1rem;font-weight:700;color:#0c0c0c">S/ ${precio.toFixed(2)}</span>`;
 
-    const stockColor = stock <= 2 ? '#d97706' : '#16a34a';
-    const stockTxt   = stock <= 2 ? `⚡ Solo ${stock}` : `✓ ${stock} en stock`;
+    const stockColor = '#16a34a';
+    const stockTxt   = `✓ Stock limitado`;
 
     return `
     <div style="border:1px solid #e0ddd6;background:#fff;break-inside:avoid;overflow:hidden">
