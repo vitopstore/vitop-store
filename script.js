@@ -39,8 +39,13 @@ function limpiarNombre(nombre) {
 }
 
 function mensajeWA(nombre, precio, tallas) {
+  const tallasLimpias = String(tallas || "")
+    .split(",")
+    .map(t => t.split(":")[0].trim())
+    .filter(Boolean)
+    .join(", ");
   return encodeURIComponent(
-    "Hola Vitop Store! 🛍️\nQuiero pedir:\n*" + nombre + "*\n💰 Precio: S/ " + precio + "\n📐 Tallas: " + tallas + "\n¿Hay stock?"
+    "Hola Vitop Store! 🛍️\nQuiero pedir:\n*" + nombre + "*\n💰 Precio: S/ " + precio + "\n📐 Tallas: " + tallasLimpias + "\n¿Hay stock?"
   );
 }
 

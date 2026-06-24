@@ -113,20 +113,35 @@ function generarGrillaTallas(nombre, categoria, tallasDisponibles, opts) {
   const claseBase          = opts.claseBase || "talla-chip";
   const claseDisponible    = opts.claseDisponible || "disponible";
   const claseNoDisponible  = opts.claseNoDisponible || "no-disponible";
-  const onClickFn          = opts.onClickFn || null; // nombre de función JS a invocar, ej: "seleccionarTalla(this,'TALLA')"
+  const onClickFn          = opts.onClickFn || null;
 
-  const disponiblesSet = new Set(
-    (tallasDisponibles || []).map(t => String(t).trim())
-  );
+  const disponiblesSet = new Set();
+  const cantidadPorTalla = {};
+  (tallasDisponibles || []).forEach(entry => {
+    const partes = String(entry).trim().split(":");
+    const talla = partes[0].trim();
+    if (!talla) return;
+    disponiblesSet.add(talla);
+    if (partes[1] !== undefined) cantidadPorTalla[talla] = parseInt(partes[1]) || 0;
+  });
 
   const maestras = obtenerTallasMaestras(nombre, categoria);
 
   return maestras.map(t => {
     const hayStock = disponiblesSet.has(t);
+    const cantidad = cantidadPorTalla[t];
     const clases = [claseBase, hayStock ? claseDisponible : claseNoDisponible].filter(Boolean).join(" ");
-    const attrs = hayStock
-      ? (onClickFn ? ` onclick="${onClickFn.replace("TALLA", t)}"` : "")
-      : ` disabled title="Talla no disponible"`;
-    return `<${tagName} class="${clases}"${attrs}>${t}</${tagName}>`;
+
+    if (!hayStock) {
+      return `<${tagName} class="${clases}" disabled title="Talla no disponible">${t}</${tagName}>`;
+    }
+
+    const tooltip = cantidad ? `${cantidad} disponible${cantidad === 1 ? "" : "s"}` : "Disponible";
+    const onclickAttr = onClickFn ? ` onclick="${onClickFn.replace("TALLA", t)}"` : "";
+    const badge = cantidad && cantidad > 1
+      ? `<sup style="font-size:0.6em;margin-left:1px">×${cantidad}</sup>`
+      : "";
+
+    return `<${tagName} class="${clases}" title="${tooltip}"${onclickAttr}>${t}${badge}</${tagName}>`;
   }).join("");
 }
