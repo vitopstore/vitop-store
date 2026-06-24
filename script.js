@@ -129,8 +129,8 @@ function iniciarApp(productos) {
   const sinResultados = document.getElementById("sinResultados");
 
   let categoriaActiva = "todos";
-  let textoBusqueda   = "";
-  let soloConStock    = true;
+let textoBusqueda   = "";
+let soloConStock    = soloStockCk.checked;
 
   const cats = [...new Set(productos.map(p => p.Categoria))].filter(Boolean).sort();
   cats.forEach(cat => {
