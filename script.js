@@ -177,9 +177,24 @@ let soloConStock    = soloStockCk.checked;
   return parseFloat(String(v || "0").replace(",", ".")) || 0;
 }
 
-const precio         = parseNum(p.Precio);  // precio real de Loyverse, SIEMPRE intacto
-const descuento      = parseNum(p.Descuento);
-const precioFinal    = precio; // nunca se recalcula
+const precio           = parseNum(p.Precio);      // precio real de Loyverse, intacto
+const descuentoManual   = parseInt(String(p.Descuento || "").replace("%", "")) || 0;
+const precioBaseManual  = parseNum(p.PrecioBase);  // precio retail escrito a mano (opcional)
+
+let descuento, precioOriginal;
+
+if (precioBaseManual > precio) {
+  precioOriginal = precioBaseManual;
+  descuento = Math.round((1 - precio / precioBaseManual) * 100);
+} else if (descuentoManual > 0) {
+  descuento = descuentoManual;
+  precioOriginal = Math.round(precio / (1 - descuento / 100) * 100) / 100;
+} else {
+  descuento = 0;
+  precioOriginal = precio;
+}
+
+const precioFinal = precio; // nunca se recalcula
 const precioOriginal = descuento > 0 ? (Math.round(precio / (1 - descuento / 100) * 100) / 100) : precio;
     const stock       = parseInt(p.Stock) || 0;
     const tallas      = p.Tallas || "";
