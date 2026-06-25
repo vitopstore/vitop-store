@@ -195,7 +195,7 @@ if (precioBaseManual > precio) {
 }
 
 const precioFinal = precio; // nunca se recalcula
-const precioOriginal = descuento > 0 ? (Math.round(precio / (1 - descuento / 100) * 100) / 100) : precio;
+
     const stock       = parseInt(p.Stock) || 0;
     const tallas      = p.Tallas || "";
     const hayStock    = stock > 0;
