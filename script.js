@@ -195,7 +195,6 @@ if (precioBaseManual > precio) {
 }
 
 const precioFinal = precio; // nunca se recalcula
-
     const stock       = parseInt(p.Stock) || 0;
     const tallas      = p.Tallas || "";
     const hayStock    = stock > 0;
