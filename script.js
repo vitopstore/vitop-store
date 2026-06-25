@@ -173,9 +173,14 @@ let soloConStock    = soloStockCk.checked;
 
   function tarjeta(p, idx) {
     const nombre      = limpiarNombre(p.Nombre);
-    const precio      = parseFloat(p.Precio) || 0;
-    const descuento   = parseFloat((p.Descuento || "").toString().trim()) || 0;
-    const precioFinal = descuento > 0 ? (Math.round(precio * (1 - descuento / 100) * 100) / 100) : precio;
+    function parseNum(v) {
+  return parseFloat(String(v || "0").replace(",", ".")) || 0;
+}
+
+const precio         = parseNum(p.Precio);  // precio real de Loyverse, SIEMPRE intacto
+const descuento      = parseNum(p.Descuento);
+const precioFinal    = precio; // nunca se recalcula
+const precioOriginal = descuento > 0 ? (Math.round(precio / (1 - descuento / 100) * 100) / 100) : precio;
     const stock       = parseInt(p.Stock) || 0;
     const tallas      = p.Tallas || "";
     const hayStock    = stock > 0;
@@ -220,12 +225,12 @@ let soloConStock    = soloStockCk.checked;
       : '<span class="btn-whatsapp agotado">😔 Agotado</span>';
 
     const precioHTML = descuento > 0
-      ? '<div class="precio-wrap">' +
-          '<span class="precio-nuevo">S/ ' + precioFinal.toFixed(2) + '</span>' +
-          '<span class="precio-tachado">S/ ' + precio.toFixed(2) + '</span>' +
-          '<span class="precio-badge">-' + descuento + '%</span>' +
-        '</div>'
-      : '<div class="precio-wrap"><span class="precio-normal">S/ ' + precio.toFixed(2) + ' <small>/ und</small></span></div>';
+  ? '<div class="precio-wrap">' +
+      '<span class="precio-nuevo">S/ ' + precioFinal.toFixed(2) + '</span>' +
+      '<span class="precio-tachado">S/ ' + precioOriginal.toFixed(2) + '</span>' +
+      '<span class="precio-badge">-' + descuento + '%</span>' +
+    '</div>'
+  : '<div class="precio-wrap"><span class="precio-normal">S/ ' + precio.toFixed(2) + ' <small>/ und</small></span></div>';
 
     // FIX #4: uso data-handle en lugar de onclick en el div para evitar que interfiera con links WA
     return '<div class="producto" data-handle="' + encodeURIComponent(p.Handle) + '" style="cursor:pointer">' +

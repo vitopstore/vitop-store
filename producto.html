@@ -598,10 +598,16 @@ let tallaSeleccionada = "";
 
 function renderDetalle(p) {
   const nombre      = limpiarNombre(p.Nombre || "");
-  const precio      = parseFloat(p.Precio) || 0;
+
+  function parseNum(v) {
+    return parseFloat(String(v || "0").replace(",", ".")) || 0;
+  }
+
+  const precio         = parseNum(p.Precio); // precio real de Loyverse, intacto
   // Descuento: lee columna "Descuento" del Sheet (puede venir como "50" o "50%")
-  const descuento   = parseInt(String(p.Descuento || "").replace("%", "")) || 0;
-  const precioFinal = descuento > 0 ? Math.round(precio * (1 - descuento / 100) * 10) / 10 : precio;
+  const descuento      = parseInt(String(p.Descuento || "").replace("%", "")) || 0;
+  const precioFinal    = precio; // nunca se recalcula
+  const precioOriginal = descuento > 0 ? Math.round(precio / (1 - descuento / 100) * 100) / 100 : precio;
   const stock       = parseInt(p.Stock) || 0;
   const tallas      = (p.Tallas || "").split(",").map(t => t.trim()).filter(Boolean);
   const hayStock    = stock > 0;
@@ -648,7 +654,7 @@ function renderDetalle(p) {
   const precioHTML = descuento > 0
     ? `<div class="detalle-precio-wrap">
          <span class="detalle-precio-oferta">S/ ${precioFinal.toFixed(2)}</span>
-         <span class="detalle-precio-original">S/ ${precio.toFixed(2)}</span>
+         <span class="detalle-precio-original">S/ ${precioOriginal.toFixed(2)}</span>
          <span class="detalle-badge-desc">-${descuento}% de descuento</span>
        </div>`
     : `<div class="detalle-precio">S/ ${precio.toFixed(2)} <small>/ und</small></div>`;
